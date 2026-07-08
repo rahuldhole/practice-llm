@@ -5,3 +5,4 @@ model.pth
 vocab.json
 .DS_Store
 dist/
+scratch_llm.egg-info/
