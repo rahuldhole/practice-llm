@@ -11,10 +11,10 @@ def main():
     args = parser.parse_args()
 
     # Parameters (Must match training config)
-    d_model = 64
+    d_model = 32
     n_heads = 4
     n_kv_heads = 2
-    n_layers = 4
+    n_layers = 2
 
     # Device configuration
     device = torch.device(args.device)

@@ -52,13 +52,13 @@ def main():
     args = parser.parse_args()
 
     # Hyperparameters
-    d_model = 64
+    d_model = 32
     n_heads = 4
     n_kv_heads = 2 # GQA
-    n_layers = 4
-    seq_length = 32
+    n_layers = 2
+    seq_length = 16
     batch_size = 16
-    epochs = 200
+    epochs = 50
     learning_rate = 2e-3
     weight_decay = 0.1
     max_grad_norm = 1.0
