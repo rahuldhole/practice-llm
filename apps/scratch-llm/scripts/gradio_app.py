@@ -164,8 +164,8 @@ def main():
         block_radius="12px"
     )
 
-    with gr.Blocks(theme=theme, css=custom_css, title="ScratchLLM Chat UI") as demo:
-        with gr.Div(elem_classes="header-banner"):
+    with gr.Blocks(title="ScratchLLM Chat UI") as demo:
+        with gr.Group(elem_classes="header-banner"):
             gr.HTML("<h1>ScratchLLM Interactive Chat</h1>")
             gr.HTML("<p>Interact with a tiny GPT-style model featuring SOTA Pre-Norm RMSNorm, SwiGLU activations, GQA, FlashAttention, and KV Caching.</p>")
 
@@ -208,7 +208,7 @@ def main():
                 )
                 
     demo.queue()
-    demo.launch(server_name="0.0.0.0", server_port=7860, share=False)
+    demo.launch(server_name="0.0.0.0", server_port=7860, share=False, theme=theme, css=custom_css)
 
 if __name__ == "__main__":
     main()
