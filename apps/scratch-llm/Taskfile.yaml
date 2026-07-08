@@ -1,0 +1,22 @@
+version: '3'
+
+tasks:
+  install:
+    desc: Install dependencies and the project in editable mode
+    cmds:
+      - pip install -e .
+
+  train:
+    desc: Train the LLM model
+    cmds:
+      - python scripts/train.py
+
+  api:
+    desc: Run the FastAPI server
+    cmds:
+      - uvicorn llm.api:app --reload
+
+  infer:
+    desc: Run a quick inference test
+    cmds:
+      - python scripts/inference.py

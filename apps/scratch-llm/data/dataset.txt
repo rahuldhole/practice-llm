@@ -1,0 +1,6 @@
+Hello world.
+Hello Rahul.
+Hello AI.
+AI is cool.
+Python is fun.
+The sky is blue.
