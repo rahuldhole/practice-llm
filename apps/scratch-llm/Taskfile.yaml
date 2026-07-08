@@ -13,11 +13,6 @@ tasks:
     cmds:
       - venv/bin/python scripts/train.py
 
-  api:
-    desc: Run the FastAPI server
-    cmds:
-      - venv/bin/uvicorn llm.api:app --reload
-
   infer:
     desc: Run a quick inference test
     cmds:

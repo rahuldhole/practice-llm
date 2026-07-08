@@ -1,35 +1,36 @@
 import torch
 import torch.nn as nn
-import math
 
-class PositionalEncoding(nn.Module):
-    def __init__(self, d_model, max_len=5000):
-        super().__init__()
-        # Create a matrix of shape (max_len, d_model)
-        pe = torch.zeros(max_len, d_model)
-        position = torch.arange(0, max_len, dtype=torch.float).unsqueeze(1)
-        div_term = torch.exp(torch.arange(0, d_model, 2).float() * (-math.log(10000.0) / d_model))
-        pe[:, 0::2] = torch.sin(position * div_term)
-        pe[:, 1::2] = torch.cos(position * div_term)
-        pe = pe.unsqueeze(0) # (1, max_len, d_model)
-        self.register_buffer('pe', pe)
+def precompute_freqs_cis(dim: int, end: int, theta: float = 10000.0):
+    freqs = 1.0 / (theta ** (torch.arange(0, dim, 2)[: (dim // 2)].float() / dim))
+    t = torch.arange(end, device=freqs.device, dtype=torch.float32)
+    freqs = torch.outer(t, freqs).float()
+    freqs_cis = torch.polar(torch.ones_like(freqs), freqs)  # complex64
+    return freqs_cis
 
-    def forward(self, x):
-        """
-        x: Tensor, shape (batch_size, seq_len, d_model)
-        """
-        seq_len = x.size(1)
-        return x + self.pe[:, :seq_len, :]
+def apply_rotary_emb(xq: torch.Tensor, xk: torch.Tensor, freqs_cis: torch.Tensor):
+    # Reshape xq and xk to match the complex representation
+    xq_ = torch.view_as_complex(xq.float().reshape(*xq.shape[:-1], -1, 2))
+    xk_ = torch.view_as_complex(xk.float().reshape(*xk.shape[:-1], -1, 2))
+    
+    # Broadcast freqs_cis to match sequence length
+    freqs_cis = freqs_cis.view(1, xq_.shape[1], 1, xq_.shape[-1])
+    
+    # Apply rotation
+    xq_out = torch.view_as_real(xq_ * freqs_cis).flatten(3)
+    xk_out = torch.view_as_real(xk_ * freqs_cis).flatten(3)
+    
+    return xq_out.type_as(xq), xk_out.type_as(xk)
 
 class EmbeddingLayer(nn.Module):
     def __init__(self, vocab_size, d_model):
         super().__init__()
         self.word_embeddings = nn.Embedding(vocab_size, d_model)
-        self.positional_encoding = PositionalEncoding(d_model)
 
     def forward(self, x):
         """
         x: Tensor, shape (batch_size, seq_len)
         """
-        embeddings = self.word_embeddings(x)
-        return self.positional_encoding(embeddings)
+        # Positional encodings (RoPE) are applied during attention, 
+        # so this layer only does token embeddings now.
+        return self.word_embeddings(x)

@@ -1,6 +1,6 @@
 import torch
 from llm.tokenizer import SimpleTokenizer
-from llm.model import TinyLLM
+from llm.model import ScratchLLM
 import json
 
 def load_tokenizer(vocab_path):

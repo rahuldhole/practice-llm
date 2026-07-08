@@ -1,18 +1,21 @@
 import torch
-from llm.model import TinyLLM
+from llm.model import ScratchLLM
 from llm.generate import load_tokenizer, generate_text
 
 def run_inference():
     # Parameters must match training
     d_model = 16
+    n_heads = 4
+    n_layers = 2
     
     # Load tokenizer
     tokenizer = load_tokenizer("dist/vocab.json")
     vocab_size = tokenizer.vocab_size
     
     # Initialize model and load weights
-    model = TinyLLM(vocab_size, d_model)
+    model = ScratchLLM(vocab_size, d_model, n_heads=n_heads, n_layers=n_layers)
     model.load_state_dict(torch.load("dist/model.pth"))
+    model.eval()
     
     # Test generation
     prompt = "Hello"
