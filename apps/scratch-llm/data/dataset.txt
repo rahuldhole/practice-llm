@@ -1,6 +1,65 @@
-Hello world.
-Hello Rahul.
-Hello AI.
-AI is cool.
-Python is fun.
-The sky is blue.
+User: Hello! AI: Hello! How can I help you today?
+User: Hi there! AI: Hi there! How can I help you today?
+User: Hey! AI: Hey! What is on your mind?
+User: How are you? AI: I am doing great, thank you! How are you?
+User: Who are you? AI: I am ScratchLLM, a state-of-the-art tiny language model trained from scratch.
+User: What is your name? AI: My name is ScratchLLM.
+User: What can you do? AI: I can chat, answer simple questions, and demonstrate modern SOTA transformer features.
+User: Tell me about yourself. AI: I am a tiny GPT-style model featuring Pre-Norm RMSNorm, SwiGLU activations, and Rotary Embeddings.
+User: What is python? AI: Python is a popular, easy-to-read programming language used for machine learning and web dev.
+User: Why is python good? AI: Python is good because it has simple syntax and a massive ecosystem of libraries.
+User: What is pytorch? AI: PyTorch is an open-source machine learning library developed by Facebook AI Research.
+User: What is a transformer? AI: A transformer is a deep learning model architecture that uses self-attention to process text sequences.
+User: What is FlashAttention? AI: FlashAttention is a fast, memory-efficient attention algorithm that speeds up transformer training.
+User: What is GQA? AI: Grouped Query Attention splits query heads but shares key and value heads to save VRAM.
+User: What is RoPE? AI: Rotary Positional Embedding applies a mathematical rotation to query and key vectors for relative positions.
+User: What is RMSNorm? AI: RMSNorm scales features by their root mean square, which is faster than standard LayerNorm.
+User: Tell me a joke. AI: Why did the computer catch a cold? Because it had open windows!
+User: Tell me another joke. AI: Why do programmers wear glasses? Because they can't C#!
+User: Give me a programming joke. AI: There are 10 types of people in the world: those who understand binary, and those who don't.
+User: Who created you? AI: I was created by Rahul as a custom scratch-llm learning project.
+User: What is the capital of France? AI: The capital of France is Paris.
+User: What is the capital of Spain? AI: The capital of Spain is Madrid.
+User: What is the capital of Germany? AI: The capital of Germany is Berlin.
+User: What is the capital of Italy? AI: The capital of Italy is Rome.
+User: What is the capital of Japan? AI: The capital of Japan is Tokyo.
+User: What is the capital of India? AI: The capital of India is New Delhi.
+User: What is the capital of Canada? AI: The capital of Canada is Ottawa.
+User: What is the capital of Australia? AI: The capital of Australia is Canberra.
+User: Goodbye! AI: Goodbye! Have a wonderful day!
+User: Bye! AI: Bye! Talk to you soon!
+User: Thank you. AI: You are welcome! Happy to help.
+User: Thanks! AI: You are welcome! Happy to help.
+
+User: Hello! AI: Hello! How can I help you today?
+User: Hi there! AI: Hi there! How can I help you today?
+User: Hey! AI: Hey! What is on your mind?
+User: How are you? AI: I am doing great, thank you! How are you?
+User: Who are you? AI: I am ScratchLLM, a state-of-the-art tiny language model trained from scratch.
+User: What is your name? AI: My name is ScratchLLM.
+User: What can you do? AI: I can chat, answer simple questions, and demonstrate modern SOTA transformer features.
+User: Tell me about yourself. AI: I am a tiny GPT-style model featuring Pre-Norm RMSNorm, SwiGLU activations, and Rotary Embeddings.
+User: What is python? AI: Python is a popular, easy-to-read programming language used for machine learning and web dev.
+User: Why is python good? AI: Python is good because it has simple syntax and a massive ecosystem of libraries.
+User: What is pytorch? AI: PyTorch is an open-source machine learning library developed by Facebook AI Research.
+User: What is a transformer? AI: A transformer is a deep learning model architecture that uses self-attention to process text sequences.
+User: What is FlashAttention? AI: FlashAttention is a fast, memory-efficient attention algorithm that speeds up transformer training.
+User: What is GQA? AI: Grouped Query Attention splits query heads but shares key and value heads to save VRAM.
+User: What is RoPE? AI: Rotary Positional Embedding applies a mathematical rotation to query and key vectors for relative positions.
+User: What is RMSNorm? AI: RMSNorm scales features by their root mean square, which is faster than standard LayerNorm.
+User: Tell me a joke. AI: Why did the computer catch a cold? Because it had open windows!
+User: Tell me another joke. AI: Why do programmers wear glasses? Because they can't C#!
+User: Give me a programming joke. AI: There are 10 types of people in the world: those who understand binary, and those who don't.
+User: Who created you? AI: I was created by Rahul as a custom scratch-llm learning project.
+User: What is the capital of France? AI: The capital of France is Paris.
+User: What is the capital of Spain? AI: The capital of Spain is Madrid.
+User: What is the capital of Germany? AI: The capital of Germany is Berlin.
+User: What is the capital of Italy? AI: The capital of Italy is Rome.
+User: What is the capital of Japan? AI: The capital of Japan is Tokyo.
+User: What is the capital of India? AI: The capital of India is New Delhi.
+User: What is the capital of Canada? AI: The capital of Canada is Ottawa.
+User: What is the capital of Australia? AI: The capital of Australia is Canberra.
+User: Goodbye! AI: Goodbye! Have a wonderful day!
+User: Bye! AI: Bye! Talk to you soon!
+User: Thank you. AI: You are welcome! Happy to help.
+User: Thanks! AI: You are welcome! Happy to help.

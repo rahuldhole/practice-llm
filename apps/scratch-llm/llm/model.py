@@ -26,29 +26,45 @@ class SwiGLU(nn.Module):
     def forward(self, x):
         return self.w2(nn.functional.silu(self.w1(x)) * self.w3(x))
 
+class KVCache:
+    def __init__(self):
+        self.cache = {}
+        
+    def is_empty(self, layer):
+        return layer not in self.cache
+        
+    def get(self, layer):
+        return self.cache[layer]
+        
+    def update(self, layer, K, V):
+        self.cache[layer] = (K, V)
+
+    def clear(self):
+        self.cache.clear()
+
 class ScratchLLMBlock(nn.Module):
-    def __init__(self, d_model, n_heads):
+    def __init__(self, d_model, n_heads, n_kv_heads=None):
         super().__init__()
-        self.attention = MultiHeadAttention(d_model, n_heads)
+        self.attention = MultiHeadAttention(d_model, n_heads, n_kv_heads)
         hidden_dim = int(4 * d_model * 2 / 3)
         self.ffn = SwiGLU(d_model, hidden_dim)
         
         self.attention_norm = RMSNorm(d_model)
         self.ffn_norm = RMSNorm(d_model)
 
-    def forward(self, x, freqs_cis):
+    def forward(self, x, freqs_cis, kv_cache=None):
         # Pre-Norm architecture
-        h = x + self.attention(self.attention_norm(x), freqs_cis)
+        h = x + self.attention(self.attention_norm(x), freqs_cis, kv_cache)
         out = h + self.ffn(self.ffn_norm(h))
         return out
 
 class ScratchLLM(nn.Module):
-    def __init__(self, vocab_size, d_model, n_heads=4, n_layers=2, max_seq_len=2048):
+    def __init__(self, vocab_size, d_model, n_heads=4, n_kv_heads=2, n_layers=2, max_seq_len=2048):
         super().__init__()
         self.embedding = EmbeddingLayer(vocab_size, d_model)
         
         self.layers = nn.ModuleList([
-            ScratchLLMBlock(d_model, n_heads) for _ in range(n_layers)
+            ScratchLLMBlock(d_model, n_heads, n_kv_heads) for _ in range(n_layers)
         ])
         
         self.norm = RMSNorm(d_model)
@@ -57,18 +73,18 @@ class ScratchLLM(nn.Module):
         # Precompute RoPE frequencies
         self.freqs_cis = precompute_freqs_cis(d_model // n_heads, max_seq_len)
 
-    def forward(self, x):
+    def forward(self, x, start_pos=0, kv_cache=None):
         """
         x: Input token IDs, shape (batch_size, seq_len)
         """
         _, seq_len = x.shape
         x = self.embedding(x)
         
-        # Get frequencies for the current sequence length
-        freqs_cis = self.freqs_cis[:seq_len].to(x.device)
+        # Get frequencies for the current sequence range
+        freqs_cis = self.freqs_cis[start_pos : start_pos + seq_len].to(x.device)
         
         for layer in self.layers:
-            x = layer(x, freqs_cis)
+            x = layer(x, freqs_cis, kv_cache)
             
         x = self.norm(x)
         logits = self.lm_head(x) # (batch_size, seq_len, vocab_size)

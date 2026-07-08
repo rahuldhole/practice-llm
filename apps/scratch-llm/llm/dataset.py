@@ -19,15 +19,15 @@ class TextDataset(Dataset):
         
         return torch.tensor(x, dtype=torch.long), torch.tensor(y, dtype=torch.long)
 
-def get_dataloader(file_path, seq_length, batch_size):
+def get_dataloader(file_path, seq_length, batch_size, vocab_size=2000):
     with open(file_path, "r") as f:
         text = f.read()
     
-    tokenizer = SimpleTokenizer()
-    tokenizer.fit(text)
+    tokenizer = SimpleTokenizer(vocab_size=vocab_size)
+    tokenizer.fit(file_path)
     
     dataset = TextDataset(text, tokenizer, seq_length)
-    dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
+    dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True, drop_last=True)
     return dataloader, tokenizer
 
 if __name__ == "__main__":

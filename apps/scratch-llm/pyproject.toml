@@ -8,7 +8,9 @@ version = "0.1.0"
 description = "A tiny, from-scratch implementation of a Transformer-based Large Language Model"
 requires-python = ">=3.8"
 dependencies = [
-    "torch"
+    "torch",
+    "gradio",
+    "tokenizers"
 ]
 
 [tool.setuptools]
