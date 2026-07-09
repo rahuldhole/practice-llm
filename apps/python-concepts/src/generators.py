@@ -97,7 +97,18 @@ if __name__ == "__main__":
     for idx, batch in enumerate(loader):
         print(f"  Batch {idx}: {batch}")
 
-    # 2. Generator Pipelines
+
+
+    # 2. Generator stream tokens
+    print("\n--- Generator Pipeline Demo ---")
+    raw_text = "Hello, world! Welcome to the world of deep learning and Transformers."
+    print(f"\nRaw text: '{raw_text}'")
+    tokens = stream_tokens(raw_text)
+    print("\n--- Tokens ---")
+    for token in tokens: # or call print(next(tokens)) to get one token at a time (repeatedly)
+        print(token)
+
+    # 3. Generator Pipelines
     raw_text = "Hello, world! Welcome to the world of deep learning and Transformers."
     print(f"\nRaw text: '{raw_text}'")
     
