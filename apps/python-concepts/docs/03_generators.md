@@ -18,7 +18,7 @@ For an object to be an iterator, it must implement the **Iterator Protocol** con
 Writing custom iterators with classes can be verbose. **Generators** simplify this by using the `yield` keyword.
 When a generator function is called, it does not execute the function body. Instead, it returns a generator object. When `next()` is called on this generator, execution runs until it encounters a `yield` statement, returns the yielded value, and pauses state.
 
-**TLDR:** It stop function exection wherever `yield` is written and resumes when `next()` is called
+**TLDR:** It stop function exection wherever `yield` is written and resumes when `next()` is called. `yield` also returns value like `return`
 ```python
 def simple_generator():
     yield 1

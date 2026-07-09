@@ -50,7 +50,7 @@ def stream_tokens(text):
         if char.isspace():
             if word:
                 time.sleep(0.1)  # Simulate 100ms network/generation delay
-                yield "".join(word)
+                yield "".join(word) # stops and returns currently computed token, then resumes from here when next() is called
                 word = []
         else:
             word.append(char)
