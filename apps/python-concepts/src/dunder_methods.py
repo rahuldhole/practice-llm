@@ -121,6 +121,7 @@ if __name__ == "__main__":
     
     print(f"v1 repr: {repr(v1)}")
     print(f"v1 str: {v1}")
+    print(f"v2 str: {v2}")
     print(f"v1 length: {len(v1)}")
     print(f"v1 first element (v1[0]): {v1[0]}")
     print(f"v1 slice (v1[1:]): {v1[1:]}")
