@@ -1,6 +1,6 @@
-# 🌌 Full Learning Roadmap: Mastering AI & Deep Learning
+# 🌌 Deep Learning Systems & Architectures Roadmap
 
-This roadmap is designed for mastering the science, math, architecture, and engineering of Artificial Intelligence from absolute fundamentals to advanced frontier research.
+This roadmap is designed for engineers seeking to master the **internal mechanics and systems** of deep learning by building libraries, architectures, Autograd engines, and customized Transformers from scratch.
 
 ---
 
@@ -13,8 +13,8 @@ You have completed the foundational requirements for deep learning and transform
 
 ---
 
-## 🗺️ Part 2: The AI Mastery Path
-To become a master of AI, you must understand every layer of the stack: from base math and scratch models to hardware-level optimizations, pre-training dynamics, and custom architectures.
+## 🗺️ Part 2: The AI Systems Mastery Path
+To master AI systems engineering, you must understand every layer of the execution stack: from base math and custom neural engines to pre-training mechanics, structural optimization, and hardware-level profiling.
 
 ```mermaid
 flowchart TD
