@@ -1,0 +1,24 @@
+version: '3'
+
+tasks:
+  install:
+    desc: Install dependencies and the project in editable mode
+    cmds:
+      - python3 -m venv venv
+      - venv/bin/pip install --upgrade pip
+      - venv/bin/pip install -e .
+
+  train:
+    desc: "Train the LLM model. Usage: task train -- [args] (e.g. task train -- --device mps)"
+    cmds:
+      - "venv/bin/python scripts/train.py {{.CLI_ARGS}}"
+
+  infer:
+    desc: "Run a quick inference test. Usage: task infer -- [args] (e.g. task infer -- --device mps)"
+    cmds:
+      - "venv/bin/python scripts/inference.py {{.CLI_ARGS}}"
+
+  chat:
+    desc: "Run the Gradio Chat UI. Usage: task chat -- [args] (e.g. task chat -- --device mps)"
+    cmds:
+      - "venv/bin/python scripts/gradio_app.py {{.CLI_ARGS}}"
