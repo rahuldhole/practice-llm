@@ -24,6 +24,38 @@ class TimerContext:
         return False
 
 
+class SafeLogger:
+    """
+    A class-based context manager that writes logs to a file or stream,
+    safely handling open/close resources and managing exceptions.
+    """
+    def __init__(self, file_path, suppress_errors=False):
+        self.file_path = file_path
+        self.suppress_errors = suppress_errors
+        self.file = None
+
+    def __enter__(self):
+        self.file = open(self.file_path, "a")
+        return self
+
+    def write(self, message):
+        if self.file:
+            self.file.write(f"[{time.asctime()}] {message}\n")
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        if self.file:
+            self.file.close()
+        
+        if exc_type is not None:
+            print(f"[SafeLogger] Caught exception inside block: {exc_val}")
+            # If suppress_errors is True, return True to prevent exception from propagating
+            return self.suppress_errors
+        return False
+
+
+
+
+
 # Global runtime configuration dictionary
 _RUN_CONFIG = {
     "gradient_enabled": True,
@@ -58,34 +90,6 @@ def config_scope(**temp_config):
         _RUN_CONFIG = original
 
 
-class SafeLogger:
-    """
-    A class-based context manager that writes logs to a file or stream,
-    safely handling open/close resources and managing exceptions.
-    """
-    def __init__(self, file_path, suppress_errors=False):
-        self.file_path = file_path
-        self.suppress_errors = suppress_errors
-        self.file = None
-
-    def __enter__(self):
-        self.file = open(self.file_path, "a")
-        return self
-
-    def write(self, message):
-        if self.file:
-            self.file.write(f"[{time.asctime()}] {message}\n")
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        if self.file:
-            self.file.close()
-        
-        if exc_type is not None:
-            print(f"[SafeLogger] Caught exception inside block: {exc_val}")
-            # If suppress_errors is True, return True to prevent exception from propagating
-            return self.suppress_errors
-        return False
-
 
 if __name__ == "__main__":
     print("--- Context Managers Demo ---")
@@ -97,18 +101,7 @@ if __name__ == "__main__":
             total += i
     print(f"Recorded elapsed time inside context variable: {t.elapsed:.6f}s")
     
-    # 2. ConfigContext demo
-    print(f"\nInitial config: gradient_enabled={get_config('gradient_enabled')}")
-    
-    # Temporarily turn off gradients
-    with config_scope(gradient_enabled=False, precision="float16"):
-        print(f"Inside config context: gradient_enabled={get_config('gradient_enabled')}")
-        print(f"Inside config context: precision={get_config('precision')}")
-        
-    print(f"After config context: gradient_enabled={get_config('gradient_enabled')}")
-    print(f"After config context: precision={get_config('precision')}")
-    
-    # 3. Exception suppression demo
+    # 2. Exception suppression demo
     print("\nWriting logs with exception handling...")
     import tempfile
     import os
@@ -133,3 +126,14 @@ if __name__ == "__main__":
     finally:
         if os.path.exists(temp_path):
             os.remove(temp_path)
+
+    # 3. ConfigContext demo
+    print(f"\nInitial config: gradient_enabled={get_config('gradient_enabled')}")
+    
+    # Temporarily turn off gradients
+    with config_scope(gradient_enabled=False, precision="float16"):
+        print(f"Inside config context: gradient_enabled={get_config('gradient_enabled')}")
+        print(f"Inside config context: precision={get_config('precision')}")
+        
+    print(f"After config context: gradient_enabled={get_config('gradient_enabled')}")
+    print(f"After config context: precision={get_config('precision')}")
