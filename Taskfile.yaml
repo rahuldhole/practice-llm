@@ -1,0 +1,57 @@
+# Root Taskfile for orchestrating tasks across all subprojects.
+#
+# Usage:
+#   - List all available tasks:
+#       task
+#       (or task --list / task -l)
+#
+#   - Run a task from a specific subproject:
+#       task <subproject>:<task_name> [-- <args>]
+#       Examples:
+#         task basics:test
+#         task python-concepts:run -- src/dunder_methods.py
+#         task scratch-llm:train -- --device cpu
+#         task python-concepts:run -- src/oop_meta.py
+#
+#   - Run root orchestration tasks:
+#       task test-all
+#       task venv
+#
+version: '3'
+
+includes:
+  basics:
+    taskfile: ./apps/basics
+    dir: ./apps/basics
+  python-concepts:
+    taskfile: ./apps/python-concepts
+    dir: ./apps/python-concepts
+  scratch-llm:
+    taskfile: ./apps/scratch-llm
+    dir: ./apps/scratch-llm
+  scratch-llm-minimal:
+    taskfile: ./apps/scratch-llm-minimal
+    dir: ./apps/scratch-llm-minimal
+  transformer:
+    taskfile: ./apps/transformer
+    dir: ./apps/transformer
+
+tasks:
+  default:
+    desc: "List all available tasks across projects"
+    silent: true
+    cmds:
+      - task --list
+
+  venv:
+    desc: "Create virtual environment at the root"
+    cmds:
+      - python3 -m venv venv
+    status:
+      - test -d venv
+
+  test-all:
+    desc: "Run tests for all projects (basics, python-concepts)"
+    deps:
+      - basics:test
+      - python-concepts:test
