@@ -37,8 +37,10 @@ flowchart TD
 ### 2. Architecture & Scratch Implementations
 * **Concepts**: Encoder-Decoder blocks, causal masking, residual streams, layernorm placement (Pre-LN vs Post-LN), rotary embeddings (RoPE).
 * **Completed in Codebase**: Decoder-only Tiny GPT (`src/gpt.py`), Transformer blocks (`modules/transformer.py`).
+* **Architectural Refactoring (Priority)**: Prioritize upgrading the existing repository with Grouped-Query Attention (GQA) and Rotary Position Embeddings (RoPE) before exploring alternative paradigms.
 
-### 3. Pre-training Paradigms (Foundational Science)
+### 3. Pre-training Paradigms & Data Engineering (Foundational Science)
+* **Data Engineering for Pre-training**: Semantic deduplication (MinHash/LSH), heuristic quality filters (perplexity, character/word ratios), and tokenization edge cases.
 * **Sparse Mixtures of Experts (MoE)**: Routing mechanics, load balancing losses, token gating (`megablocks`, DBRX, Mixtral).
 * **Long-Context Scaling**: YaRN interpolation, RoPE frequency scaling, flash attention integration.
 * **Dense Pre-training**: Learning curves, Chinchilla scaling laws, compute optimal training.
@@ -52,8 +54,13 @@ flowchart TD
 
 ### 5. Alignment & Preference Optimization
 * **Preference Math**: Direct Preference Optimization (DPO) mathematical derivations, ORPO, Kahneman-Tversky Optimization (KTO).
-* **Reinforcement Learning**: PPO, GRPO (Group Relative Policy Optimization) reasoning trajectories, reward-model training, and rejection sampling SFT.
+* **VRAM-Efficient Reinforcement Learning**: Group Relative Policy Optimization (GRPO) to learn alignment without the memory overhead of a separate critic network.
+* **Reward Hacking Guardrails**: KL-divergence penalty mechanics in policy optimization to prevent policy drift and model collapse during PPO/GRPO training.
+* **Other RL Methods**: PPO reasoning trajectories, reward-model training, and rejection sampling SFT.
 
 ### 6. Edge & Hardware-Level Optimization
+* **Memory vs. Compute Profiling**: Separating optimizations into:
+  * **Compute-Bound**: Prefill phase, standard matrix multiplication, FlashAttention kernels.
+  * **Memory-Bandwidth-Bound**: Decoding phase, KV-cache lookup, GQA, MLA.
 * **Quantization Mechanics**: PTQ (Post-Training Quantization), QAT (Quantization-Aware Training), ternary/binary weight systems (BitNet 1-bit models).
 * **Speedup & Decoding**: Speculative decoding, Multi-Token Prediction (MTP) drafting, and NPU-native kernel compilation (e.g., Apple MLX, Qualcomm Hexagon).
