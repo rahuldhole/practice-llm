@@ -69,10 +69,19 @@
 | **29. [NPU-Native Kernel Compilations](VIII_edge/npu_kernel_compilation.md)** | Use when compiling and optimizing model graphs to target local NPUs (Apple ANE, Qualcomm Hexagon, Intel Lunar Lake) to prevent execution latency bottlenecks. | **$0** (Developer rig) | **Dataset Range:** 1,000 performance test prompt samples.<br>Runs local model JIT/AOT lowering compilation scripts. Computes fusions and layout adjustments on host system within 1–2 hours. Compute cost: \$0. |
 | **30. [Speculative Decoding Distillation](VIII_edge/speculative_decoding_distillation.md)** | Use when training a hyper-lightweight drafter model (<100M) to match the token distribution of your main model, enabling speculative decoding speeds via llama.cpp/Ollama. | **$100 - $500** | **Dataset Range:** 1B–2B tokens (teacher-labeled logits).<br>Student model training: $6 \times 100\text{M} \times 2\text{B} = 1.2 \times 10^{18}$ FLOPs. 1x RTX 4090 GPU (80 TFLOPS effective) $\approx 4.2$ hours. Compute cost: $4.2 \times \$0.30 \approx \$1.26$. Setup and target dataset logging: \$100-\$500. |
 
+### IX. Edge Mixture-of-Experts Paradigms
+
+| Paradigm | When to Train & Why (Use Cases) | Est. Cost (Indie/Spot) | Rough Calculations (Data & Compute) |
+| :--- | :--- | :--- | :--- |
+| **31. [Prompt-Level Routing ("Static Gating")](VIII_edge/prompt_level_routing.md)** | Use when running MoE models locally on memory-constrained devices (8GB Macs, iPhones) to lock a fixed set of experts in unified memory at step 0, completely avoiding high-latency, token-by-token weight swapping from NAND. | **$100 - $500** (Local run) | **Dataset Range:** 100M–500M tokens calibration prompts.<br>Train routing projection layers: $6.5 \times 3\text{B} \times 500\text{M} = 9.75 \times 10^{18}$ FLOPs. Local unified memory compute (M-Series Mac at 20 TFLOPS) $\approx 135$ hours of execution. |
+| **32. [Router-Decoupled Pre-Gating (Lookahead Scheduling)](VIII_edge/router_decoupled_gating.md)** | Use when running MoE on edge devices with high-speed local SSDs to pre-fetch and stream upcoming expert weights into unified RAM asynchronously before execution, hiding I/O transfer latency. | **$200 - $1,000** | **Dataset Range:** 500M tokens routing calibration.<br>Training decoupled router: $6.5 \times 3\text{B} \times 500\text{M} = 9.75 \times 10^{18}$ FLOPs. 1x local RTX 4090 (80 TFLOPS active) $\approx 34$ hours. Spot H100 $\approx 4$ hours. Compute cost: ~$20. |
+| **33. [Sub-Network Activation Pruning (Read-ME Strategy)](VIII_edge/subnetwork_activation_pruning.md)** | Use when wanting to convert a pre-trained dense LLM into a sparse MoE on edge devices, reducing disk storage footprint and compute cost without the training convergence risks of starting from scratch. | **$500 - $2,000** | **Dataset Range:** 1B token calibration corpus.<br>Clustering FFN layers: $6 \times 3\text{B} \times 1\text{B} = 1.8 \times 10^{19}$ FLOPs. 4x H100 node $\approx 3.5$ hours. Spot cost: $3.5 \times 4 \times 1.50 \approx \$21$ compute. Setup and calibration pipeline checks: \$500-\$2,000. |
+
 ---
 
 ### How to use this:
 
 * **$100 Plan:** ([Plan 5](II_adaptation/continual_pretraining.md) + [Plan 14](IV_efficiency/peft_lora_qlora.md) + [Plan 9](III_alignment/supervised_finetuning.md)).
 * **Indie MoE Plan:** ([Plan 7](II_adaptation/downcycling_moe.md) + [Plan 2](I_foundational/sparse_moe_pretraining.md) + [Plan 10](III_alignment/direct_preference_opt.md)).
+* **Edge MoE Plan:** ([Plan 33](VIII_edge/subnetwork_activation_pruning.md) + [Plan 31](VIII_edge/prompt_level_routing.md) + [Plan 14](IV_efficiency/peft_lora_qlora.md)).
 * **Master Plan:** ([Plan 1](I_foundational/dense_pretraining.md) + [Plan 8](II_adaptation/knowledge_distillation.md) + [Plan 18](V_datacentric/synthetic_data_scaling.md) + [Plan 20](V_datacentric/self_correction_reflection.md) + [Plan 11](III_alignment/odds_ratio_preference.md)).
