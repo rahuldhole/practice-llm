@@ -1,4 +1,5 @@
 import random
+import time
 
 class BatchLoader:
     """
@@ -48,11 +49,13 @@ def stream_tokens(text):
     for char in text:
         if char.isspace():
             if word:
+                time.sleep(0.1)  # Simulate 100ms network/generation delay
                 yield "".join(word)
                 word = []
         else:
             word.append(char)
     if word:
+        time.sleep(0.1)  # Simulate 100ms network/generation delay
         yield "".join(word)
 
 
