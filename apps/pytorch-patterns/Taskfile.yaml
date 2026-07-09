@@ -1,0 +1,31 @@
+version: '3'
+
+tasks:
+  venv:
+    desc: "Create a virtual environment at workspace root"
+    cmds:
+      - python3 -m venv ../../venv
+    status:
+      - test -d ../../venv
+
+  install:
+    desc: "Install dependencies and the project in editable mode"
+    deps: [venv]
+    cmds:
+      - ../../venv/bin/pip install --upgrade pip
+      - ../../venv/bin/pip install -e .
+    status:
+      # Use glob matching or directory existence check for the egg-link or dist-info
+      - test -d ../../venv/lib/python*/site-packages/pytorch_patterns.egg-link -o -d ../../venv/lib/python*/site-packages/pytorch_patterns-0.1.0.dist-info
+
+  test:
+    desc: "Run all tests in the project"
+    deps: [install]
+    cmds:
+      - ../../venv/bin/pytest tests/
+
+  run:
+    desc: "Run a specific python script or file. Usage: task run -- src/custom_dataset.py"
+    deps: [install]
+    cmds:
+      - ../../venv/bin/python {{.CLI_ARGS}}

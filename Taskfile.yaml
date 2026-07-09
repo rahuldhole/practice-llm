@@ -35,6 +35,9 @@ includes:
   transformer:
     taskfile: ./apps/transformer
     dir: ./apps/transformer
+  pytorch-patterns:
+    taskfile: ./apps/pytorch-patterns
+    dir: ./apps/pytorch-patterns
 
 tasks:
   default:
@@ -51,7 +54,8 @@ tasks:
       - test -d venv
 
   test-all:
-    desc: "Run tests for all projects (basics, python-concepts)"
+    desc: "Run tests for all projects (basics, python-concepts, pytorch-patterns)"
     deps:
       - basics:test
       - python-concepts:test
+      - pytorch-patterns:test

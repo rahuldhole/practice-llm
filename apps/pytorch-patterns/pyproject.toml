@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pytorch-patterns"
+version = "0.1.0"
+description = "Educational guide and code samples for advanced PyTorch development patterns"
+requires-python = ">=3.8"
+dependencies = [
+    "torch>=2.0.0",
+    "pytest>=7.0.0"
+]
+
+[tool.setuptools]
+packages = ["pytorch_patterns"]
+package-dir = {"pytorch_patterns" = "src"}
