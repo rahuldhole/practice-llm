@@ -1,39 +1,58 @@
 # 🧬 Tutorial 01: Custom Datasets & DataLoaders
 
-**TLDR:** Handling variable-length sequence data using custom Datasets and batch collators.
+**TLDR:** Padding variable-length sequence data using custom Datasets and batch collators.
 
-In deep learning, data pipeline setup is just as important as model architecture. PyTorch provides a highly extensible data API consisting of the `Dataset` and `DataLoader` classes.
+When we process sequence data (like words, sentences, or audio), each input sample has a different length. However, GPUs need data arranged in tidy, rectangular grids (tensors) of equal dimensions to calculate quickly. 
 
-For simple datasets (like static images or fixed-length tables), default loaders stack samples out of the box. However, for sequence tasks (like NLP or speech processing), sequence lengths vary. Stacking them directly into a batch tensor fails because tensors must be rectangular.
-
-This tutorial covers the pattern to resolve this: creating a custom dataset to map tokens, and implementing a custom `collate_fn` to pad sequences dynamically per-batch.
+We solve this using **Dynamic Padding**: taking variable-length sequences and padding them with a special character (like `<PAD>`) so they match the longest sequence in that specific batch.
 
 ---
 
-## 1. Custom Dataset Protocol
-A custom dataset inherits from `torch.utils.data.Dataset` and implements:
-- `__init__(self)`: Prepares the input source (e.g., reads files or takes lists) and builds mappings (like character/word vocabularies).
-- `__len__(self)`: Returns the total number of samples.
-- `__getitem__(self, idx)`: Returns a single tokenized input sample and its length.
+## 📦 The Visual Metaphor: The Toy Packager
+Imagine an assembly worker packing toys. If we try to stack a teddy bear, a toy car, and a bicycle into standard boxes of matching sizes, we must pad the empty space in the smaller boxes (using bubble wrap) to keep them secure. 
 
-*Code reference*: [TextSequenceDataset in custom_dataset.py](../src/custom_dataset.py#L4-L44)
+```mermaid
+flowchart TD
+    Raw1["'SGD' (Len: 3)"] -->|Tokenize| T1["[19, 7, 4]"]
+    Raw2["'PyTorch' (Len: 7)"] -->|Tokenize| T2["[16, 25, 20, 15, 18, 3, 8]"]
+    
+    T1 -->|Collate & Pad| Batch[["Batch Tensor (Shape: 2 x 7)
+    [19, 7,  4,  0,  0, 0, 0]  <-- padded with 0s
+    [16, 25, 20, 15, 18, 3, 8]"]]
+    T2 -->|Collate & Pad| Batch
+```
 
 ---
 
-## 2. Dynamic Padding with a Custom Collator
-The standard `DataLoader` aggregates samples using a default collation function (`default_collate`). If you try to batch sequences of length 3, 5, and 7, the loader raises a shape mismatch runtime error.
+## 📊 Collation Strategy Comparison
 
-To solve this:
-1. Provide a custom callable `collate_fn` parameter to the `DataLoader`.
-2. Find the maximum sequence length in that specific mini-batch.
-3. Pad the shorter sequences in that batch with a padding token to match the maximum length.
-4. Stack them into a clean tensor of shape `(batch_size, max_len)`.
+| Collation Method | How it Works | Pros / Cons |
+|---|---|---|
+| **Default Collation (`default_collate`)** | Tries to stack tensors directly. | ❌ Crashes if sequence shapes do not match. |
+| **Global Padding** | Pads all inputs to a pre-defined maximum length (e.g., 512). | ❌ Wasteful. Shorter batches waste GPU memory on padding computations. |
+| **Dynamic Padding (`PadCollate`)** | Finds the maximum length *in this specific batch* and pads only to that length. |  Efficient and fast. Minimizes padding overhead. |
 
-This pattern of dynamic padding (padding per batch rather than padding everything to a global maximum sequence length) reduces memory usage and training time.
+---
 
-*Code reference*: [PadCollate in custom_dataset.py](../src/custom_dataset.py#L47-L91)
+<details>
+<summary>💡 Read about Dataset Mapping and Collate Protocol</summary>
+
+### How it Works
+1. **The Dataset (`TextSequenceDataset`)**:
+   - `__len__`: Counts how many sentences we have.
+   - `__getitem__`: Converts a sentence into numerical character IDs (e.g. `'cat'` becomes `[3, 1, 20]`).
+2. **The Collator (`PadCollate`)**:
+   - Inspects the sequences in the current batch.
+   - Identifies the maximum length (e.g., if one is 5 tokens and another is 10, maximum is 10).
+   - Fills the end of shorter tensors with `pad_idx` (0) so every tensor is exactly 10 tokens long.
+   - Stacks them into a single 2D tensor of shape `(batch_size, max_len)`.
+
+*Code reference*: [dataset_text.py](../src/dataset_text.py) and [collate_padding.py](../src/collate_padding.py)
+
+</details>
 
 ---
 
 ## 💡 Practical Challenge
-Open [custom_dataset.py](../src/custom_dataset.py) and run it with `task pytorch-patterns:run -- src/custom_dataset.py`. Try modifying the collate function to output a binary mask tensor `(batch_size, max_len)` indicating where actual tokens are (1) vs padding characters (0). This mask is essential when implementing causal and padding attention masks in Transformers!
+Open [dataset_text.py](../src/dataset_text.py) and execute it with `task pytorch-patterns:run -- src/dataset_text.py`. Try modifying the code or looking at [collate_padding.py](../src/collate_padding.py) to output an attention mask tensor indicating where actual tokens are (1) vs padding characters (0).
+

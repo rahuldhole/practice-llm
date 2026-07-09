@@ -2,36 +2,56 @@
 
 **TLDR:** Attaching non-intrusive hooks to inspect layer activations and gradients at runtime.
 
-When debugging neural networks, logging variables inside the `forward` function of a model can quickly clutter your codebase, especially when using pre-built networks (like torchvision models or Hugging Face Transformers).
+When debugging models, we often want to inspect intermediate values (like activation values or gradient scales). Adding `print()` statements inside model files clutters the code. 
 
-PyTorch solves this with **Hooks**—callbacks that can be registered on any `nn.Module` to execute custom code during the forward or backward pass without altering the module's source code.
-
----
-
-## 1. Types of Hooks
-
-### A. Forward Hooks (`register_forward_hook`)
-- Executes after a module's `forward` function finishes.
-- Signature: `hook_fn(module, input, output)`
-- Useful for extracting feature activations, logging representation statistics (mean/std), or caching values for visualization.
-
-### B. Backward Hooks (`register_full_backward_hook`)
-- Executes when gradients are computed during backpropagation.
-- Signature: `hook_fn(module, grad_input, grad_output)`
-- Useful for checking if gradients are vanishing (approaching 0) or exploding, and auditing layer updates.
-
-*Code reference*: [ModelInspector hooks setup in hooks_debug.py](../src/hooks_debug.py#L32-L61)
+Instead, PyTorch has **Hooks**—temporary observation callbacks that you can attach to layers to inspect data packets silently.
 
 ---
 
-## 2. Preventing Memory Leaks
-When working with hooks, it is easy to accidentally cause memory leaks:
-1. **Detaching Tensors**: Inside hooks, always call `.detach()` on inputs, outputs, or gradients if you intend to store them outside the pass (e.g. in a list). Storing active tensors keeps their entire computational graph in GPU memory, preventing it from being garbage collected.
-2. **Removing Handles**: Registering a hook returns a hook handle. Once debugging is complete, call `handle.remove()` to clean up. If left registered, the hook runs on every step, degrading performance.
+## 🎥 The Visual Metaphor: Pipeline Cameras
+Think of a model like a factory pipeline. Rather than stopping the conveyor belt and cutting open packages to inspect them, we mount high-speed inspection cameras (hooks) over specific sections of the line. The cameras snap photos of items passing through (forward hook) and labels on return shipments (backward hook) without interfering.
 
-*Code reference*: [Hook cleanup in hooks_debug.py](../src/hooks_debug.py#L99-L106)
+```mermaid
+flowchart TD
+    subgraph Layer Forward Execution
+        In[Input x] -->|Triggers Forward Hook| HookF[Record Activation Shape/Mean]
+        In -->|Core Layer Math| Out[Output y]
+    end
+    
+    subgraph Layer Backward Execution
+        gOut[grad_output] -->|Triggers Backward Hook| HookB[Record Gradient Norm/Scale]
+        gOut -->|Core Backward Math| gIn[grad_input]
+    end
+```
+
+---
+
+## 📊 Hook Type Comparison
+
+| Hook Category | Forward Hook | Backward Hook |
+|---|---|---|
+| **Registration Method** | `register_forward_hook(fn)` | `register_full_backward_hook(fn)` |
+| **Arguments Received** | `(module, input, output)` | `(module, grad_input, grad_output)` |
+| **Trigger Point** | Immediately after `forward()` runs | During backpropagation of gradients |
+| **Best Used For** | 🔍 Extracting intermediate activations/features | 📉 Diagnosing exploding/vanishing gradients |
+
+---
+
+<details>
+<summary>💡 Read about hook rules and memory safety</summary>
+
+### ⚠️ Critical Hook Safety Rules:
+1. **Always use `.detach()`**:
+   When storing outputs or gradients inside a hook, always call `.detach()`. If you save the active tensor itself (e.g. appending it to a global list), PyTorch is forced to keep its entire history of math operations in memory, resulting in a **GPU out-of-memory memory leak**.
+2. **Remove Hooks after Debugging**:
+   Calling `register_forward_hook` returns a `handle` object. When you are done debugging, you must call `handle.remove()`. If you leave hooks attached during normal training, they will add unnecessary computing overhead and slow down training.
+
+*Code reference*: [hooks_inspector.py](../src/hooks_inspector.py)
+
+</details>
 
 ---
 
 ## 💡 Practical Challenge
-Run the inspector demo with `task pytorch-patterns:run -- src/hooks_debug.py`. Try modifying `ModelInspector` to track the percentage of zero activations (dead neurons) in ReLU layers. This is done by checking what fraction of values in the `output` tensor of a layer are exactly 0.0.
+Run the inspector demo with `task pytorch-patterns:run -- src/hooks_inspector.py`. Modify `ModelInspector` to track the percentage of zero activations (dead neurons) in ReLU layers. Check what fraction of values in the layer's output tensor are exactly 0.0.
+

@@ -2,33 +2,59 @@
 
 **TLDR:** Designing a safe, structured training loop with mode toggling, gradient clipping, and scheduler integrations.
 
-A training loop in PyTorch requires coordinating several moving parts. A poorly configured loop can lead to silent bugs (e.g. updating validation stats, forgetting to zero gradients, or experiencing training divergence due to gradient explosions).
-
-This guide walks through the components of a robust, production-grade training cycle.
+A training loop is the orchestrator of deep learning. It feeds data to the model, evaluates performance, calculates weight corrections, and applies them. Skipping or misordering any step can stall training or create bugs.
 
 ---
 
-## 1. Core Training Cycle Elements
+## 📋 The Visual Metaphor: The Pilot's Checklist
+Think of training a model like flying a plane. You don't just takeoff. You follow a strict sequence: check instrument dials (zero gradients), start the engine (forward pass), check destination path (calculate loss), adjust flaps (backward pass), limits controls (clip gradients), and move forward (optimizer step).
 
-### A. Train/Eval Mode Toggling
-- `model.train()` puts the model in training mode. This enables layers like Dropout (which randomly drops connections) and Batch Normalization (which updates running statistics).
-- `model.eval()` freezes these layers for inference so behavior is deterministic.
+```mermaid
+flowchart TD
+    Step1["1. zero_grad()
+    (Clear old gradients)"] --> Step2["2. model(X)
+    (Forward pass)"]
+    Step2 --> Step3["3. Compute Loss
+    (Compare output vs target)"]
+    Step3 --> Step4["4. loss.backward()
+    (Compute new gradients)"]
+    Step4 --> Step5["5. clip_grad_norm_()
+    (Cap gradients to prevent explosion)"]
+    Step5 --> Step6["6. optimizer.step()
+    (Update model weights)"]
+    Step6 --> Step7["7. scheduler.step()
+    (Decay learning rate)"]
+    Step7 -->|Next Batch| Step1
+```
 
-### B. Gradient Zeroing
-Before running a backward pass, you must call `optimizer.zero_grad()`. In PyTorch, gradients accumulate (add up) on every `.backward()` call by default. Accumulating gradients is useful for virtual batch sizes, but if you do not clear them, subsequent training steps will mix gradients across steps, leading to incorrect updates.
+---
 
-### C. Gradient Norm Clipping
-Exploding gradients (massive gradients) can destabilize training. Using `torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm)` computes the total L2 norm of the model's gradients and scales them down if they exceed `max_norm`.
+## 📊 Model Mode Comparison
 
-### D. Optimizer & Scheduler Steps
-The optimizer updates weights using `optimizer.step()`. Schedulers (like `StepLR` or `CosineAnnealingLR`) decay learning rates over time to fine-tune final convergence. Remember to call `scheduler.step()` at the correct interval (e.g., at the end of each epoch).
+| Mode / Context | `model.train()` (Training) | `model.eval()` (Evaluation/Inference) |
+|---|---|---|
+| **Dropout Layers** |  Enabled (Randomly drops neurons) | ❌ Disabled (Passes all neurons) |
+| **Batch Normalization** |  Updates running averages | ❌ Freezes and uses running averages |
+| **Gradient Tracking** |  Yes (necessary for learning) | ❌ Typically disabled via `torch.no_grad()` |
 
-### E. Inference under `torch.no_grad()`
-During evaluation, wrapping computations inside `with torch.no_grad():` disables autograd tracking. This eliminates the memory overhead of storing intermediate activations, making inference significantly faster and memory-efficient.
+---
 
-*Code reference*: [Trainer class in training_loop.py](../src/training_loop.py#L42-L113)
+<details>
+<summary>💡 Read about Gradient Accumulation and Clipping</summary>
+
+### Why do we zero gradients?
+In PyTorch, calling `loss.backward()` adds the new gradients to whatever gradients are already stored in the parameter's `.grad` field. This is called **gradient accumulation**. If we forget to call `optimizer.zero_grad()`, our steps will grow increasingly erratic, combining direction instructions across separate training steps.
+
+### Why do we clip gradients?
+During backpropagation, multiplying many small numbers can lead to gradients vanishing to zero. Conversely, multiplying large numbers can cause gradients to explode to infinity, tearing the model's weight adjustments apart.
+- **Gradient Clipping** caps the gradient magnitude to a maximum norm (e.g. `1.0`), keeping weight updates stable.
+
+*Code reference*: [model_mlp.py](../src/model_mlp.py) and [trainer_loop.py](../src/trainer_loop.py)
+
+</details>
 
 ---
 
 ## 💡 Practical Challenge
-Run the training loop script using `task pytorch-patterns:run -- src/training_loop.py`. Try changing the optimizer from `Adam` to `SGD` with momentum, and change the learning rate scheduler to a cosine annealing scheduler (`torch.optim.lr_scheduler.CosineAnnealingLR`). Observe how the learning rate decays differently and compare the final validation accuracy.
+Run the code using `task pytorch-patterns:run -- src/trainer_loop.py`. Try changing the optimizer in your tests or experiment files from `Adam` to `SGD` with momentum, and examine how the loss changes!
+

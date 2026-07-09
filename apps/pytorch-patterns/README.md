@@ -8,13 +8,17 @@ Before building large-scale deep learning models (like Transformers or custom LL
 
 ## 🚀 The Implementation Ladder
 
-Each file in this project covers a separate PyTorch concept in depth, complete with detailed comments and a standalone execution demo at the bottom.
+Each file in this project covers a separate PyTorch concept in depth, complete with simplified, kid-friendly comments.
 
-1. **Custom Datasets & DataLoaders (`src/custom_dataset.py`)**: Custom indexing and dynamic padding. Learn how to tokenize raw sequences and write a custom collate function (`collate_fn`) to pad variable-length sequences dynamically per batch.
-2. **Custom Modules & Initialization (`src/custom_module.py`)**: Subclassing `nn.Module`. Learn parameter registration (`nn.Parameter`), non-trainable state buffers (`register_buffer`), and custom weight initialization methods (Xavier/Kaiming).
-3. **Robust Training Loops (`src/training_loop.py`)**: Standard training cycles. Learn how to toggle train/eval states correctly, run backpropagation, perform gradient clipping, and decay learning rates with schedulers.
-4. **Custom Autograd & Loss (`src/custom_autograd.py`)**: Extending PyTorch math. Subclass `torch.autograd.Function` to write custom forward/backward passes (Gradient Reversal Layer) and write a custom loss function (Binary Focal Loss).
-5. **PyTorch Hooks & Debugging (`src/hooks_debug.py`)**: Non-intrusive model inspection. Use forward and backward hooks to dynamically monitor activation statistics and gradient norms during training.
+1. **Custom Datasets (`src/dataset_text.py`)**: Learn how to write a simple character index dataset.
+2. **Dynamic Padding (`src/collate_padding.py`)**: Learn to pad batch sequences dynamically to the longest sequence in the batch.
+3. **Module Parameters (`src/module_params.py`)**: Learn the difference between learning weights (`nn.Parameter`) and tracking states (`register_buffer`).
+4. **Weight Initializations (`src/module_init.py`)**: Learn how to initialize layer weights using Xavier, Kaiming, or constant distributions.
+5. **MLP Models (`src/model_mlp.py`)**: Learn to stack layers to form a Multi-Layer Perceptron.
+6. **Training Loops (`src/trainer_loop.py`)**: Learn how to build a training and evaluation runner loop step-by-step.
+7. **Custom Autograd (`src/autograd_grl.py`)**: Subclass `torch.autograd.Function` to write custom forward/backward logic (Gradient Reversal Layer).
+8. **Custom Loss (`src/loss_focal.py`)**: Write a custom Binary Focal Loss module targeting class imbalance.
+9. **Hooks Inspection (`src/hooks_inspector.py`)**: Attach forward/backward hooks to monitor activations and gradients non-intrusively.
 
 ---
 
@@ -35,11 +39,15 @@ task test
 ### 3. Run Individual Demos
 Each file in `src/` contains a self-contained demonstration at the bottom (which runs when the file is executed directly). You can run them using:
 ```bash
-task run -- src/custom_dataset.py
-task run -- src/custom_module.py
-task run -- src/training_loop.py
-task run -- src/custom_autograd.py
-task run -- src/hooks_debug.py
+task run -- src/dataset_text.py
+task run -- src/collate_padding.py
+task run -- src/module_params.py
+task run -- src/module_init.py
+task run -- src/model_mlp.py
+task run -- src/trainer_loop.py
+task run -- src/autograd_grl.py
+task run -- src/loss_focal.py
+task run -- src/hooks_inspector.py
 ```
 
 ## 📖 The Tutorial Roadmap
