@@ -1,0 +1,29 @@
+version: '3'
+
+tasks:
+  venv:
+    desc: Create a virtual environment
+    cmds:
+      - python3 -m venv .venv
+    status:
+      - test -d .venv
+
+  install:
+    desc: Install the project in editable mode
+    deps: [venv]
+    cmds:
+      - .venv/bin/pip install -e .
+    status:
+      - test -d .venv/lib/python*/site-packages/educational_transformer.egg-link
+
+  train:
+    desc: Run the example training script
+    deps: [install]
+    cmds:
+      - .venv/bin/python train_example.py
+
+  run:
+    desc: Run a specific module (e.g. task run -- modules/embeddings_and_positional.py)
+    deps: [install]
+    cmds:
+      - .venv/bin/python {{.CLI_ARGS}}
