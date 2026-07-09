@@ -11,6 +11,8 @@ An **Abstract Base Class (ABC)** defines a common interface that all subclasses 
 - Import `ABC` and `abstractmethod` from the `abc` standard module.
 - Mark abstract methods using the `@abstractmethod` decorator.
 
+**TLDR:** It's like a strictly typed typescript interface of a class.
+
 *Code reference*: [`Layer` in oop_meta.py](../src/oop_meta.py#L22-L56)
 
 ---
