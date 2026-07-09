@@ -1,8 +1,6 @@
 from abc import ABC, ABCMeta, abstractmethod
 
 # --- EXAMPLE 1: Standard Use (The "Shape" Example) ---
-# Inheriting from ABC is the standard, readable way to define interfaces.
-
 class Shape(ABC):
     @abstractmethod
     def area(self):
@@ -11,7 +9,6 @@ class Shape(ABC):
 class Square(Shape):
     def __init__(self, side):
         self.side = side
-        
     def area(self):
         return self.side * self.side
 
@@ -21,9 +18,8 @@ print(f"Square area: {sq.area()}")
 
 
 # --- EXAMPLE 2: Advanced Use (Custom Metaclass with ABCMeta) ---
-# Use this when you need custom logic during class creation (like registration 
-# or validation) while still enforcing abstract methods.
 print("\n--- Example 2: ABCMeta with Custom Logic ---")
+
 class RegistryMeta(ABCMeta):
     def __new__(mcls, name, bases, namespace):
         cls = super().__new__(mcls, name, bases, namespace)
@@ -41,3 +37,35 @@ class EmailPlugin(BasePlugin):
 
 plugin = EmailPlugin()
 print(plugin.run())
+
+
+# --- EXAMPLE 3: Metadata Enforcement ---
+# This demonstrates how Metaclasses can force subclasses to define specific 
+# metadata (like 'version') before they are even allowed to exist.
+print("\n--- Example 3: Metadata Enforcement ---")
+
+class VersionedMeta(ABCMeta):
+    def __new__(mcls, name, bases, namespace):
+        # Enforce that every plugin MUST define a 'version' attribute
+        if name != "BaseVersionedPlugin" and "version" not in namespace:
+            raise TypeError(f"Class {name} is missing required 'version' attribute!")
+        return super().__new__(mcls, name, bases, namespace)
+
+class BaseVersionedPlugin(ABC, metaclass=VersionedMeta):
+    @abstractmethod
+    def perform(self):
+        pass
+
+# This will work
+class ValidPlugin(BaseVersionedPlugin):
+    version = "1.0.0"
+    def perform(self):
+        return "Running valid plugin"
+
+# This would raise a TypeError if uncommented:
+# class InvalidPlugin(BaseVersionedPlugin):
+#     def perform(self):
+#         return "Missing version"
+
+v_plugin = ValidPlugin()
+print(f"Plugin running: {v_plugin.perform()} (Version: {v_plugin.version})")
