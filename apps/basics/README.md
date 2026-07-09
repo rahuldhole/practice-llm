@@ -1,5 +1,7 @@
 # 🎓 Basics: Foundations of Deep Learning & Transformers
 
+**TLDR:** High-level overview and getting started guide for the project.
+
 Welcome to the **Basics** learning project! This directory is designed to help you build the conceptual and mathematical foundation needed to understand nanoGPT easily.
 
 Instead of jumping directly into complex LLMs, you will build the stack from the ground up, starting with raw Python, basic matrix operations, building an autograd engine, constructing layers and MLPs, writing tokenizers, understanding RNNs, implementing single-head and multi-head attention, and finally assembling a Decoder-Only Transformer (Tiny GPT).

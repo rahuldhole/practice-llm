@@ -1,5 +1,7 @@
 # 🔤 Tutorial 04: Text Tokenization
 
+**TLDR:** Converting text into numbers using various tokenization strategies.
+
 Computes only process numbers. Before a language model can read or write text, we must translate text (strings) into lists of integers (tokens). This process is handled by a **Tokenizer**.
 
 ---

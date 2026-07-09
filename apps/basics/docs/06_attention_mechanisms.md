@@ -1,5 +1,7 @@
 # 🔍 Tutorial 06: Attention Mechanisms
 
+**TLDR:** Understanding how attention allows models to focus on relevant context.
+
 To solve the sequential bottleneck and memory limits of RNNs, the Transformer architecture replaces recurrence entirely with **Attention**. Attention allows every token in a sequence to directly look at and retrieve information from all other tokens in the sequence, regardless of distance.
 
 ---

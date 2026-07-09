@@ -1,5 +1,7 @@
 # 🔄 Tutorial 05: Recurrent Neural Networks (RNNs)
 
+**TLDR:** Processing sequential data using Recurrent Neural Networks (RNNs).
+
 Language is inherently sequential. Words gain meaning from the words that precede them. Standard feed-forward networks (MLPs) take a fixed-size input and process it all at once. To process sequences of varying lengths, we need architectures that maintain memory.
 
 ---

@@ -1,5 +1,7 @@
 # 🎓 Python Concepts Overview: Mastering Advanced Python for Machine Learning
 
+**TLDR:** An overview of the module and what you will learn.
+
 Welcome to the **Advanced Python Concepts** learning curriculum! 
 
 This educational path is structured as a sequential ladder to help you master Python features crucial to writing clean, performant, and modular deep learning libraries. Rather than using these constructs blindly, you will study concrete Python source files, build classes, and run unit tests for each.

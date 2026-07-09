@@ -1,5 +1,7 @@
 # 1. What is an LLM?
 
+**TLDR:** An introduction to Large Language Models and their capabilities.
+
 <details>
 <summary>Click here to read what an LLM is!</summary>
 

@@ -1,5 +1,7 @@
 # 3. The Transformer: The Brain's Engine
 
+**TLDR:** Understanding the architectural choices behind Large Language Models.
+
 <details>
 <summary>What is a Transformer?</summary>
 

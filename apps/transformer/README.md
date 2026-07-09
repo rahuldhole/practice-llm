@@ -1,5 +1,7 @@
 # Educational Transformer from Scratch
 
+**TLDR:** High-level overview and getting started guide for the project.
+
 This project is a step-by-step educational guide to building a Transformer model from scratch using PyTorch. Before diving into full Large Language Models (LLMs), it's crucial to understand the fundamental building blocks of the Transformer architecture (Attention Is All You Need, 2017).
 
 ## How to use this project

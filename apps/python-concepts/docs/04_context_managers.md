@@ -1,5 +1,7 @@
 # 🧬 Tutorial 04: Context Managers
 
+**TLDR:** Managing resources safely using the `with` statement.
+
 A **Context Manager** is an object that defines the runtime context to be established when executing a `with` statement. They automate resource allocation and cleanup (e.g. closing files, releasing locks, setting global environment states).
 
 ---

@@ -1,5 +1,7 @@
 # 🏗️ Tutorial 07: Transformers & Tiny GPT
 
+**TLDR:** Learn the core building blocks of Transformers and GPT architecture.
+
 By stacking multi-head attention, normalization layers, residual connections, and position-wise feed-forward networks, we build a **Decoder-only Transformer** (like GPT-4). This architecture acts as the backbone of modern Generative AI.
 
 ---

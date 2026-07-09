@@ -1,5 +1,7 @@
 # 🎓 Foundations Roadmap: From Matrix Math to nanoGPT
 
+**TLDR:** A roadmap of fundamental concepts for learning LLMs.
+
 This tutorial provides a step-by-step roadmap for mastering the core building blocks of modern deep learning and language models. By coding these concepts from scratch, you will bridge the gap between simple math equations and a production-ready Transformer architecture like nanoGPT.
 
 ---

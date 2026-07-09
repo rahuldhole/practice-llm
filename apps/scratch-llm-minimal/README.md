@@ -1,5 +1,7 @@
 # Scratch LLM Minimal
 
+**TLDR:** High-level overview and getting started guide for the project.
+
 This is a stripped-down, unoptimized, tiny from-scratch implementation of a Transformer-based Large Language Model, written entirely in PyTorch for maximum pedagogical simplicity.
 
 ## Features

@@ -1,5 +1,7 @@
 # 🐍 Python Concepts: Core Python for Deep Learning & Library Design
 
+**TLDR:** High-level overview and getting started guide for the project.
+
 Welcome to the **Python Concepts** learning project! This directory is designed to help you master advanced Python concepts that are foundational to deep learning framework implementations, PyTorch usage, and general library design.
 
 Before diving deep into writing Transformer networks, neural network layers, or autograd engines, understanding how Python handles magic methods, custom iterators, decorators, context managers, and metaclass-based class registries will make reading and writing library code much more natural.

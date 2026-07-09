@@ -1,5 +1,7 @@
 # 🧬 Tutorial 01: Dunder (Magic) Methods
 
+**TLDR:** Customizing class behaviors with double-underscore special methods.
+
 In Python, **Dunder (Double Underscore)** or **Magic Methods** allow user-defined classes to hook into Python's syntax. Instead of calling explicit methods like `obj.add(other)`, dunder methods enable you to write `obj + other`.
 
 This is critical in deep learning:

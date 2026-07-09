@@ -1,5 +1,7 @@
 # 🎓 Course Overview: From Matrix Math to nanoGPT
 
+**TLDR:** An overview of the module and what you will learn.
+
 Welcome to the **Basics of Deep Learning & Language Models** curriculum! 
 
 This educational path is structured as a sequential ladder. Each step covers a fundamental building block of modern Large Language Models (LLMs). Rather than using high-level libraries, you will write the math and structure of each component in pure Python or minimal PyTorch to truly understand how they work.

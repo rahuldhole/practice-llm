@@ -1,5 +1,7 @@
 # ⛰️ Tutorial 08: nanoGPT Walkthrough
 
+**TLDR:** A step-by-step code walkthrough of NanoGPT implementation.
+
 Now that you have built a Decoder-only Transformer (Tiny GPT), you have all the conceptual knowledge required to read and understand Andrej Karpathy's `nanoGPT` repository. 
 
 This guide connects our educational modules to the optimizations used in a production-ready codebase.

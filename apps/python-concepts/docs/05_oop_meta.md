@@ -1,5 +1,7 @@
 # 🧬 Tutorial 05: OOP & Metaprogramming
 
+**TLDR:** Advanced Object-Oriented Programming and metaclass concepts.
+
 Modern machine learning libraries make heavy use of Object-Oriented Programming (OOP) and Metaprogramming to manage network layers, optimizers, and models dynamically.
 
 ---

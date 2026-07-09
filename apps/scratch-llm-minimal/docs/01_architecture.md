@@ -1,5 +1,7 @@
 # 🧩 Minimal LLM Architecture
 
+**TLDR:** Overview of the core architecture and design principles.
+
 <details>
 <summary>What makes this Minimal Model special?</summary>
 

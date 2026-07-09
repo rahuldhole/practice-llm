@@ -1,5 +1,7 @@
 # 2. Data Preparation: Turning Words into Numbers
 
+**TLDR:** Preparing and cleaning datasets for model training.
+
 <details>
 <summary>Why do we need to prepare data?</summary>
 

@@ -1,5 +1,7 @@
 # 🧬 Tutorial 02: Decorators & Closures
 
+**TLDR:** Using decorators to modify function behavior dynamically.
+
 A **decorator** is a design pattern in Python that allows you to modify, wrap, or extend the behavior of a function or class without permanently modifying its source code. Under the hood, decorators rely on **closures**.
 
 ---

@@ -1,5 +1,7 @@
 # 🤖 Tutorial 03: Neural Networks & MLPs
 
+**TLDR:** Building basic neural networks from scratch.
+
 A neural network is a mathematical function that maps inputs to outputs through layers of calculations. By combining simple components—neurons, activation functions, and layers—we can build models that learn to recognize complex patterns.
 
 ---

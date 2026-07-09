@@ -1,5 +1,7 @@
 # 🧬 Tutorial 01: Matrix Math Foundations
 
+**TLDR:** Foundations of matrix math operations essential for deep learning.
+
 In deep learning, all inputs, weights, activations, and gradients are represented as arrays of numbers. A 0D array is a **scalar**, a 1D array is a **vector**, and a 2D array is a **matrix**. Multi-dimensional arrays are called **tensors**.
 
 Before building neural networks, we must master matrix mathematical operations, as they are the engine of all forward and backward passes.

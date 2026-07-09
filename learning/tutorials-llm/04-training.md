@@ -1,5 +1,7 @@
 # 4. Training: Teaching the AI
 
+**TLDR:** Setting up and running the model training process.
+
 <details>
 <summary>How does the AI actually learn?</summary>
 

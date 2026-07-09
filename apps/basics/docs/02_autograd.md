@@ -1,5 +1,7 @@
 # 🎛️ Tutorial 02: Autograd Engine
 
+**TLDR:** How automatic differentiation engines track and compute gradients.
+
 In deep learning, we optimize models by adjusting parameters to minimize a scalar loss. The directions of these adjustments are calculated using derivatives. An **Autograd Engine** automatically computes these derivatives by traversing the mathematical operations performed during training.
 
 ---

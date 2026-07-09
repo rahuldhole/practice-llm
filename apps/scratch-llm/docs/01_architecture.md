@@ -1,5 +1,7 @@
 # 🚀 SOTA Architecture Upgrades
 
+**TLDR:** Overview of the core architecture and design principles.
+
 <details>
 <summary>What makes a SOTA Model special?</summary>
 

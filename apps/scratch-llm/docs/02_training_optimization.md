@@ -1,5 +1,7 @@
 # 🏋️ SOTA Training & Optimization
 
+**TLDR:** Techniques for optimizing the training loop and performance.
+
 <details>
 <summary>Why do we need optimization?</summary>
 
