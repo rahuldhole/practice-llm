@@ -128,12 +128,12 @@ if __name__ == "__main__":
             os.remove(temp_path)
 
     # 3. ConfigContext demo
-    print(f"\nInitial config: gradient_enabled={get_config('gradient_enabled')}")
+    print(f"\nInitial config: gradient_enabled={get_config('gradient_enabled')}, precision={get_config('precision')}")
     
+    print(f"Before config context: gradient_enabled={get_config('gradient_enabled')}, precision={get_config('precision')}")
+
     # Temporarily turn off gradients
     with config_scope(gradient_enabled=False, precision="float16"):
-        print(f"Inside config context: gradient_enabled={get_config('gradient_enabled')}")
-        print(f"Inside config context: precision={get_config('precision')}")
+        print(f"Inside config context: gradient_enabled={get_config('gradient_enabled')}, precision={get_config('precision')}")
         
-    print(f"After config context: gradient_enabled={get_config('gradient_enabled')}")
-    print(f"After config context: precision={get_config('precision')}")
+    print(f"After config context: gradient_enabled={get_config('gradient_enabled')}, precision={get_config('precision')}")
