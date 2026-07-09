@@ -15,7 +15,7 @@ tasks:
       - ../../venv/bin/pip install torch --index-url https://download.pytorch.org/whl/cpu --no-cache-dir
       - ../../venv/bin/pip install -e . --no-cache-dir
     status:
-      - test -d ../../venv/lib/python*/site-packages/educational_transformer.egg-link
+      - test -d ../../venv/lib/python*/site-packages/educational_transformer-0.1.0.dist-info -o -d ../../venv/lib/python*/site-packages/educational_transformer.egg-link
 
   train:
     desc: Run the example training script

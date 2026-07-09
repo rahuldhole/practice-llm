@@ -14,6 +14,8 @@ tasks:
     cmds:
       - ../../venv/bin/pip install --upgrade pip
       - ../../venv/bin/pip install -e .
+    status:
+      - test -d ../../venv/lib/python*/site-packages/scratch_llm-0.1.0.dist-info
 
   train:
     desc: "Train the LLM model. Usage: task train -- [args] (e.g. task train -- --device mps)"
