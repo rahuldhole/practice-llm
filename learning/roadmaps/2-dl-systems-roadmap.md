@@ -32,11 +32,11 @@ flowchart TD
 
 ### 1. Mathematical & Coding Foundations
 * **Concepts**: Vector calculus, linear algebra, probability theory, computational graph design.
-* **Completed in Codebase**: Custom Autograd (`src/autograd.py`), custom Matrix library (`src/matrix.py`).
+* **Completed in Codebase**: Custom Autograd ([`src/autograd.py`](../../0-foundations/20-basics/src/autograd.py)), custom Matrix library ([`src/matrix.py`](../../0-foundations/20-basics/src/matrix.py)).
 
 ### 2. Architecture & Scratch Implementations
 * **Concepts**: Encoder-Decoder blocks, causal masking, residual streams, layernorm placement (Pre-LN vs Post-LN), rotary embeddings (RoPE).
-* **Completed in Codebase**: Decoder-only Tiny GPT (`src/gpt.py`), Transformer blocks (`modules/transformer.py`).
+* **Completed in Codebase**: Decoder-only Tiny GPT ([`src/gpt.py`](../../0-foundations/20-basics/src/gpt.py)), Transformer blocks ([`modules/transformer.py`](../../0-foundations/40-transformer/modules/transformer.py)).
 * **Architectural Refactoring (Priority)**: Prioritize upgrading the existing repository with Grouped-Query Attention (GQA) and Rotary Position Embeddings (RoPE) before exploring alternative paradigms.
 
 ### 3. Pre-training Paradigms & Data Engineering (Foundational Science)

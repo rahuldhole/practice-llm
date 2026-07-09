@@ -35,7 +35,7 @@ flowchart TD
 * **Research Workflow**: Hypothesis-driven development (hypothesis → experiment → analysis), systematic benchmarking, and ablation study design.
 * **Experiment Tracking**: Integration with tools like Weights & Biases (W&B) and MLflow.
 * **Math & Autograd**: Vector calculus, linear algebra, probability theory, computational graph design.
-* **Completed in Codebase**: Custom Autograd (`src/autograd.py`), custom Matrix library (`src/matrix.py`).
+* **Completed in Codebase**: Custom Autograd ([`src/autograd.py`](../../0-foundations/20-basics/src/autograd.py)), custom Matrix library ([`src/matrix.py`](../../0-foundations/20-basics/src/matrix.py)).
 
 ### 2. Paper Reproduction & Scratch Architecture
 * **Paper Reproduction Pipeline**: Reimplementing paper architectures, debugging training runs, hyperparameter tuning, and matching benchmark results.

@@ -21,23 +21,23 @@ version: '3'
 
 includes:
   basics:
-    taskfile: ./apps/basics
-    dir: ./apps/basics
+    taskfile: ./0-foundations/20-basics
+    dir: ./0-foundations/20-basics
   python-concepts:
-    taskfile: ./apps/python-concepts
-    dir: ./apps/python-concepts
+    taskfile: ./0-foundations/10-python-concepts
+    dir: ./0-foundations/10-python-concepts
   scratch-llm:
-    taskfile: ./apps/scratch-llm
-    dir: ./apps/scratch-llm
+    taskfile: ./0-foundations/60-scratch-llm
+    dir: ./0-foundations/60-scratch-llm
   scratch-llm-minimal:
-    taskfile: ./apps/scratch-llm-minimal
-    dir: ./apps/scratch-llm-minimal
+    taskfile: ./0-foundations/50-scratch-llm-minimal
+    dir: ./0-foundations/50-scratch-llm-minimal
   transformer:
-    taskfile: ./apps/transformer
-    dir: ./apps/transformer
+    taskfile: ./0-foundations/40-transformer
+    dir: ./0-foundations/40-transformer
   pytorch-patterns:
-    taskfile: ./apps/pytorch-patterns
-    dir: ./apps/pytorch-patterns
+    taskfile: ./0-foundations/30-pytorch-patterns
+    dir: ./0-foundations/30-pytorch-patterns
 
 tasks:
   default:
