@@ -4,26 +4,27 @@ tasks:
   venv:
     desc: Create a virtual environment
     cmds:
-      - python3 -m venv .venv
+      - python3 -m venv ../../venv
     status:
-      - test -d .venv
+      - test -d ../../venv
 
   install:
     desc: Install the project in editable mode
     deps: [venv]
     cmds:
-      - .venv/bin/pip install -e .
+      - ../../venv/bin/pip install torch --index-url https://download.pytorch.org/whl/cpu --no-cache-dir
+      - ../../venv/bin/pip install -e . --no-cache-dir
     status:
-      - test -d .venv/lib/python*/site-packages/educational_transformer.egg-link
+      - test -d ../../venv/lib/python*/site-packages/educational_transformer.egg-link
 
   train:
     desc: Run the example training script
     deps: [install]
     cmds:
-      - .venv/bin/python train_example.py
+      - ../../venv/bin/python train_example.py
 
   run:
     desc: Run a specific module (e.g. task run -- modules/embeddings_and_positional.py)
     deps: [install]
     cmds:
-      - .venv/bin/python {{.CLI_ARGS}}
+      - ../../venv/bin/python {{.CLI_ARGS}}
