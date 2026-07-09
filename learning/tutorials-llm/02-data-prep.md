@@ -62,3 +62,8 @@ When building models like GPT-4 or LLaMA, this step is basically the exact same!
 The only difference is that instead of using one little book, they download the entire internet (petabytes of text!) and use a very smart dictionary (like Byte-Pair Encoding) to chop up words more efficiently.
 
 </details>
+
+## 📚 Resources for Deep Learning
+- [HuggingFace Tokenizers Summary](https://huggingface.co/docs/transformers/tokenizer_summary)
+- [Byte Pair Encoding (BPE) explanation](https://en.wikipedia.org/wiki/Byte_pair_encoding)
+- [The Illustrated Word2vec (Jay Alammar)](https://jalammar.github.io/illustrated-word2vec/)

@@ -26,3 +26,8 @@ flowchart LR
 | **Dataset** | All the books, websites, and articles it reads. | Wikipedia, Reddit, Books |
 | **Training** | The process of reading and finding patterns. | Studying for a huge exam |
 | **Inference** | Actually answering your questions. | Taking the exam |
+
+## 📚 Resources for Deep Learning
+- [Attention Is All You Need (Original Transformer Paper)](https://arxiv.org/abs/1706.03762)
+- [Let's build GPT: from scratch, in code, spelled out (Andrej Karpathy)](https://www.youtube.com/watch?v=kCc8FmEb1nY)
+- [The Illustrated Transformer (Jay Alammar)](https://jalammar.github.io/illustrated-transformer/)

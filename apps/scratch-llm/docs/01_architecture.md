@@ -68,3 +68,8 @@ class SwiGLU(nn.Module):
 ```
 
 </details>
+
+## 📚 Resources for Deep Learning
+- [GQA: Training Generalized Multi-Query Transformer Models](https://arxiv.org/abs/2305.13245)
+- [Efficient Memory Management for Large Language Model Serving (KV Cache / PagedAttention)](https://arxiv.org/abs/2309.06180)
+- [RoFormer: Enhanced Transformer with Rotary Position Embedding](https://arxiv.org/abs/2104.09864)

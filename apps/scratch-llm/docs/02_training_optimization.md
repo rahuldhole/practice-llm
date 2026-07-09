@@ -58,3 +58,8 @@ def get_lr_scheduler(optimizer, warmup_steps, total_steps):
 ```
 
 </details>
+
+## 📚 Resources for Deep Learning
+- [PyTorch Automatic Mixed Precision (AMP) Examples](https://pytorch.org/tutorials/recipes/recipes/amp_recipe.html)
+- [SGDR: Stochastic Gradient Descent with Warm Restarts (Cosine Annealing)](https://arxiv.org/abs/1608.03983)
+- [Understanding Gradient Clipping](https://neptune.ai/blog/understanding-gradient-clipping-and-how-it-can-fix-exploding-gradients-problem)

@@ -75,3 +75,8 @@ The only difference is scale. Instead of training on a single laptop for an hour
 You can build a small version on your laptop here, and one day take the exact same code and run it on a supercomputer!
 
 </details>
+
+## 📚 Resources for Deep Learning
+- [AdamW: Decoupled Weight Decay Regularization](https://arxiv.org/abs/1711.05101)
+- [PyTorch Optimizers Documentation](https://pytorch.org/docs/stable/optim.html)
+- [Training Compute-Optimal Large Language Models (Chinchilla)](https://arxiv.org/abs/2203.15556)

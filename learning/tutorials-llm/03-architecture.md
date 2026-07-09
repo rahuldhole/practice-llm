@@ -65,3 +65,8 @@ When building the biggest models, the math in this engine is EXACTLY the same!
 To make it smarter, they just stack more layers of Attention and Feed Forward blocks on top of each other. A small model might have 4 layers. A huge model like GPT might have 96 or more layers!
 
 </details>
+
+## 📚 Resources for Deep Learning
+- [RoFormer: Enhanced Transformer with Rotary Position Embedding (RoPE)](https://arxiv.org/abs/2104.09864)
+- [Root Mean Square Layer Normalization (RMSNorm)](https://arxiv.org/abs/1910.07467)
+- [GLU Variants Improve Transformer (SwiGLU)](https://arxiv.org/abs/2002.05202)
