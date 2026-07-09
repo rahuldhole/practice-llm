@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "basics-learning"
+version = "0.1.0"
+description = "A foundational project containing building blocks leading up to nanoGPT"
+requires-python = ">=3.8"
+dependencies = [
+    "numpy>=1.20.0",
+    "torch>=2.0.0",
+    "tokenizers>=0.13.0",
+    "pytest>=7.0.0"
+]
+
+[tool.setuptools]
+packages = ["basics"]
+package-dir = {"basics" = "src"}
