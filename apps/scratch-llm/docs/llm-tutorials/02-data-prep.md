@@ -30,6 +30,32 @@ flowchart TD
 | **4. Encode** | Give each piece a number ID. | Giving each square a barcode. |
 
 <details>
+<summary>💻 See the Code (How we do it in our LLM)</summary>
+
+In our `llm/tokenizer.py`, we build our own dictionary and assign ID numbers using **BPE** (Byte-Pair Encoding), the same way big models do it!
+
+```python
+from tokenizers import Tokenizer
+from tokenizers.models import BPE
+from tokenizers.pre_tokenizers import Whitespace
+from tokenizers.trainers import BpeTrainer
+
+# 1. Create a blank dictionary
+tokenizer = Tokenizer(BPE(unk_token="[UNK]"))
+tokenizer.pre_tokenizer = Whitespace()
+
+# 2. Train it on our books to find common word pieces
+trainer = BpeTrainer(special_tokens=["[PAD]", "[UNK]"], vocab_size=2000)
+tokenizer.train(["my_books.txt"], trainer=trainer)
+
+# 3. Turn words into numbers!
+ids = tokenizer.encode("I love coding!").ids
+# Result: [42, 108, 903, 5]
+```
+
+</details>
+
+<details>
 <summary>Scaling up to SOTA (State of the Art)</summary>
 
 When building models like GPT-4 or LLaMA, this step is basically the exact same! 

@@ -18,11 +18,11 @@ To teach it, we play a game:
 
 ```mermaid
 flowchart LR
-    A[Show Text: "The dog barked at the"] --> B(Model Guesses)
+    A["Show Text: 'The dog barked at the'"] --> B(Model Guesses)
     B --> C{"Guess: 'apple'?"}
-    C -- Wrong! Target: 'cat' --> D[Calculate Error / Loss]
+    C -- "Wrong! Target: 'cat'" --> D[Calculate Error / Loss]
     D --> E[Update Brain / Backpropagation]
-    E -.->|Repeat millions of times| A
+    E -.->|"Repeat millions of times"| A
 ```
 
 ### The Teacher's Tools
@@ -33,6 +33,38 @@ flowchart LR
 | **Optimizer** | The tool that actually twists the knobs in the brain to fix the mistakes. | A tutor who shows you exactly how to fix your homework. |
 | **Epoch** | Going through your entire stack of books one full time. | Reading every book in your school library once. |
 | **Backpropagation** | Sending the error backwards through the brain to see what went wrong. | Tracing your steps back when you lose your toy to find out where you left it. |
+
+<details>
+<summary>💻 See the Code (The learning loop in action)</summary>
+
+In our `scripts/train.py`, we write the learning loop! It goes exactly like the diagram above.
+
+```python
+import torch
+
+# 1. The Tutor (Optimizer)
+optimizer = torch.optim.AdamW(model.parameters(), lr=1e-3)
+
+for epoch in range(10): # Read the books 10 times
+    for batch in dataset:
+        # 2. Show text to the model
+        inputs, targets = batch 
+        
+        # 3. Model Guesses (Forward Pass)
+        predictions = model(inputs) 
+        
+        # 4. Calculate Error (Loss)
+        loss = loss_function(predictions, targets)
+        
+        # 5. Find Mistakes (Backpropagation)
+        loss.backward()
+        
+        # 6. Fix Brain (Optimizer Step)
+        optimizer.step()
+        optimizer.zero_grad() # Clear out mistakes for the next round
+```
+
+</details>
 
 <details>
 <summary>Scaling up to SOTA (State of the Art)</summary>

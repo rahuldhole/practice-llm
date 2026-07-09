@@ -33,6 +33,32 @@ graph TD
 | **Probabilities** | A list of percentages for what the next word could be. | Rolling loaded dice to pick the next word! |
 
 <details>
+<summary>💻 See the Code (How we build the brain)</summary>
+
+In our `llm/model.py`, we build these parts using PyTorch, which is like LEGO bricks for AI!
+
+```python
+import torch.nn as nn
+
+# 1. The whole Brain is made of layers
+class SwiGLU(nn.Module):
+    # This is the "Feed Forward" mini-brain that processes context
+    def __init__(self, d_model, hidden_dim):
+        super().__init__()
+        self.w1 = nn.Linear(d_model, hidden_dim, bias=False)
+        self.w2 = nn.Linear(hidden_dim, d_model, bias=False)
+        self.w3 = nn.Linear(d_model, hidden_dim, bias=False)
+
+    def forward(self, x):
+        # We multiply numbers and apply an activation function (like turning a lightbulb on/off)
+        return self.w2(nn.functional.silu(self.w1(x)) * self.w3(x))
+```
+
+To make it smarter, we just stack more of these layers together!
+
+</details>
+
+<details>
 <summary>Scaling up to SOTA (State of the Art)</summary>
 
 When building the biggest models, the math in this engine is EXACTLY the same! 

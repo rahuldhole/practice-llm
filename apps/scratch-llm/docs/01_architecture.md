@@ -1,26 +1,70 @@
-# SOTA LLM Architecture Process
+# 🚀 SOTA Architecture Upgrades
 
-This document explains the core architectural components that differentiate a modern State-of-the-Art (SOTA) Large Language Model (like LLaMA 3 or Mistral) from a standard vanilla Transformer. Our `scratch-llm` codebase now actively implements all of these components!
+<details>
+<summary>What makes a SOTA Model special?</summary>
 
-## 1. Grouped Query Attention (GQA) & FlashAttention
-Instead of a single attention mechanism, MHA splits queries, keys, and values into multiple "heads". We have implemented **Grouped Query Attention (GQA)**, an evolution of MHA where multiple query heads share a single key/value head (e.g., 4 Q-heads, 2 KV-heads), which significantly reduces the size of the KV cache and memory bandwidth during inference.
-* **FlashAttention:** Our codebase utilizes PyTorch's native `F.scaled_dot_product_attention`, automatically dispatching to FlashAttention-2 or Memory-Efficient Attention kernels for rapid, memory-optimized computation.
+SOTA stands for **State-of-the-Art**. It means "the best in the world right now."
+Modern models like LLaMA and Mistral use the same basic Transformer brain we talked about, but with a few very clever upgrades! 
+We use these exact same upgrades in our `scratch-llm` project!
 
-## 2. Inference KV Cache
-During generation, feeding the entire sequence of tokens repeatedly into the model yields an $O(N^2)$ bottleneck. We have implemented a state-of-the-art **KV Cache** mechanism. By storing the keys and values from previous tokens, the model only passes the single new generated token through the attention mechanism, improving generation complexity to $O(N)$.
+</details>
 
-## 3. Rotary Positional Embeddings (RoPE)
-Original transformers added a static sine/cosine positional encoding to the token embeddings. RoPE instead applies a mathematical rotation to the Queries and Keys *during* the attention computation.
-* **Why it's SOTA:** RoPE provides a better mathematical inductive bias for relative positions (token distance matters more than absolute position) and extrapolates better to longer sequences than it was trained on.
+## 🧠 The Brain Upgrades
 
-## 4. RMSNorm (Root Mean Square Normalization)
-Instead of `LayerNorm` which centers the data (subtracts mean) and scales it (divides by variance), `RMSNorm` only scales the data by its Root Mean Square.
-* **Why it's SOTA:** It is computationally cheaper and performs identically to or slightly better than LayerNorm.
+```mermaid
+flowchart TD
+    A[Normal Transformer] --> B{SOTA Upgrades}
+    B --> C[RoPE: Better Positioning]
+    B --> D[GQA: Faster Attention]
+    B --> E[SwiGLU: Smarter Processing]
+    B --> F[RMSNorm: Faster Balancing]
+```
 
-## 5. Pre-Norm vs Post-Norm
-Original transformers applied normalization *after* the residual connection. Modern models apply normalization *before* the attention/FFN block.
-* **Why it's SOTA:** Pre-Norm keeps the residual pathway completely clean, leading to significantly better training stability and allowing for much deeper networks without vanishing gradients.
+### What do they do?
 
-## 6. SwiGLU Activation Function
-The Feed-Forward Network (FFN) uses SwiGLU. SwiGLU uses the Swish activation function and a gating mechanism.
-* **Why it's SOTA:** SwiGLU yields better performance across benchmarks compared to standard ReLU or GELU.
+| Upgrade | What it is | Kid-Friendly Analogy |
+|---|---|---|
+| **Grouped Query Attention (GQA)** | Splitting the brain's focus into "groups" to save memory. | Instead of 10 teachers watching 10 kids, 1 teacher watches a group of kids. |
+| **KV Cache** | Remembering past words during generation so it doesn't have to rethink everything. | Keeping a bookmark so you don't have to re-read the whole book every time you turn a page! |
+| **RoPE (Rotary Embeddings)** | Math that rotates words to figure out how far apart they are. | Sitting in a circle and knowing exactly how many seats away your friend is. |
+| **RMSNorm** | A faster way to normalize (balance) numbers. | Using a quick scale to weigh things instead of a slow, complicated scale. |
+| **Pre-Norm** | Balancing the numbers *before* thinking about them, instead of after. | Putting on your glasses *before* you read the book! |
+| **SwiGLU** | A smarter activation function (lightbulb) in the brain. | A dimmer switch instead of just an ON/OFF button. |
+
+<details>
+<summary>💻 See the Code (How we build it)</summary>
+
+In our `llm/model.py`, we implemented these upgrades just like the big companies do:
+
+```python
+import torch
+import torch.nn as nn
+
+# 1. RMSNorm: The fast balancer
+class RMSNorm(nn.Module):
+    def __init__(self, dim: int, eps: float = 1e-5):
+        super().__init__()
+        self.eps = eps
+        self.weight = nn.Parameter(torch.ones(dim))
+
+    def _norm(self, x):
+        # We only scale the numbers, we don't subtract the mean! Faster!
+        return x * torch.rsqrt(x.pow(2).mean(-1, keepdim=True) + self.eps)
+
+    def forward(self, x):
+        return self._norm(x.float()).type_as(x) * self.weight
+
+# 2. SwiGLU: The smart lightbulb
+class SwiGLU(nn.Module):
+    def __init__(self, d_model, hidden_dim):
+        super().__init__()
+        self.w1 = nn.Linear(d_model, hidden_dim, bias=False)
+        self.w2 = nn.Linear(hidden_dim, d_model, bias=False)
+        self.w3 = nn.Linear(d_model, hidden_dim, bias=False)
+
+    def forward(self, x):
+        # Using SiLU (Swish) instead of simple ReLU
+        return self.w2(nn.functional.silu(self.w1(x)) * self.w3(x))
+```
+
+</details>
