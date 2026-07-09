@@ -79,9 +79,9 @@ def build_topo(v):
 ```
 After sorting, we set the loss node's gradient to `1.0` and iterate backward through the list, calling `node._backward()`.
 
-*Code reference*: [autograd.py](file:///home/ubuntu/playground/practice-llm/apps/basics/src/autograd.py)
+*Code reference*: [autograd.py](../src/autograd.py)
 
 ---
 
 ## 💡 Practical Challenge
-Open [autograd.py](file:///home/ubuntu/playground/practice-llm/apps/basics/src/autograd.py) and run the demo script. Try tracking a complex equation like $f = a \cdot b + c^2$ by hand, compute the partial derivatives, and then print them using `Value` to verify that your hand-calculated math matches the engine.
+Open [autograd.py](../src/autograd.py) and run the demo script. Try tracking a complex equation like $f = a \cdot b + c^2$ by hand, compute the partial derivatives, and then print them using `Value` to verify that your hand-calculated math matches the engine.

@@ -38,9 +38,9 @@ To understand neural networks, we must first learn how to manipulate dimensions.
 
 | Operation | Equation | Code Reference |
 |---|---|---|
-| Element-wise Add | $C_{ij} = A_{ij} + B_{ij}$ | [matrix.py](file:///home/ubuntu/playground/practice-llm/apps/basics/src/matrix.py#L38-L47) |
-| Matrix Multiply | $C_{ij} = \sum_k A_{ik} B_{kj}$ | [matrix.py](file:///home/ubuntu/playground/practice-llm/apps/basics/src/matrix.py#L60-L75) |
-| Transpose | $A^T_{ji} = A_{ij}$ | [matrix.py](file:///home/ubuntu/playground/practice-llm/apps/basics/src/matrix.py#L77-L83) |
+| Element-wise Add | $C_{ij} = A_{ij} + B_{ij}$ | [matrix.py](../../apps/basics/src/matrix.py#L38-L47) |
+| Matrix Multiply | $C_{ij} = \sum_k A_{ik} B_{kj}$ | [matrix.py](../../apps/basics/src/matrix.py#L60-L75) |
+| Transpose | $A^T_{ji} = A_{ij}$ | [matrix.py](../../apps/basics/src/matrix.py#L77-L83) |
 
 </details>
 
@@ -80,7 +80,7 @@ A single neuron computes a weighted sum of inputs and passes it through an activ
 * **Forward Pass**: Running inputs through the layers to get predictions.
 * **Backward Pass**: Backpropagating the error to compute weight updates.
 
-See [nn.py](file:///home/ubuntu/playground/practice-llm/apps/basics/src/nn.py) to inspect how we build a full neural network library and solve the XOR problem from scratch!
+See [nn.py](../../apps/basics/src/nn.py) to inspect how we build a full neural network library and solve the XOR problem from scratch!
 
 </details>
 
@@ -105,7 +105,7 @@ flowchart TD
     style out fill:#bfb,stroke:#333
 ```
 
-Check out our custom autograd engine implementation in [autograd.py](file:///home/ubuntu/playground/practice-llm/apps/basics/src/autograd.py).
+Check out our custom autograd engine implementation in [autograd.py](../../apps/basics/src/autograd.py).
 
 </details>
 
@@ -144,7 +144,7 @@ flowchart LR
     C -->|Merge 'ana'| D["['b', 'ana', 'na']"]
 ```
 
-See [tokenizer.py](file:///home/ubuntu/playground/practice-llm/apps/basics/src/tokenizer.py) for the complete Char and BPE implementations from scratch!
+See [tokenizer.py](../../apps/basics/src/tokenizer.py) for the complete Char and BPE implementations from scratch!
 
 </details>
 
@@ -159,7 +159,7 @@ Before attention, sequence models kept a "running summary" (hidden state) of wha
 An RNN loops through the input sequence, combining the embedding of the current token with the hidden state from the previous step.
 * **Limitations**: RNNs struggle with long-term memory because gradients vanish or explode over long sequences (e.g. reading a book).
 
-Check out [sequence.py](file:///home/ubuntu/playground/practice-llm/apps/basics/src/sequence.py) to see our custom character prediction RNN in action!
+Check out [sequence.py](../../apps/basics/src/sequence.py) to see our custom character prediction RNN in action!
 
 </details>
 
@@ -190,7 +190,7 @@ flowchart TD
     V --> Output[Contextual Vectors]
 ```
 
-Read our implementation of Single Head and Multi-Head Attention in [attention.py](file:///home/ubuntu/playground/practice-llm/apps/basics/src/attention.py).
+Read our implementation of Single Head and Multi-Head Attention in [attention.py](../../apps/basics/src/attention.py).
 
 </details>
 
@@ -206,7 +206,7 @@ We assemble the layers to construct a Decoder-Only Transformer (Tiny GPT).
 * **Residual Connections**: Adds the input back to the layer outputs, creating a "gradient highway" that enables deep stacks without gradient vanishing.
 * **Context Window**: The maximum sequence length the positional encoding table supports.
 
-Check out our modular Decoder-only Tiny GPT model in [gpt.py](file:///home/ubuntu/playground/practice-llm/apps/basics/src/gpt.py).
+Check out our modular Decoder-only Tiny GPT model in [gpt.py](../../apps/basics/src/gpt.py).
 
 </details>
 
@@ -215,7 +215,7 @@ Check out our modular Decoder-only Tiny GPT model in [gpt.py](file:///home/ubunt
 ### ⛰️ Phase 12: nanoGPT Level
 You are now ready to tackle Andrej Karpathy's `nanoGPT`. It is essentially the final assembly of the components you have just built:
 
-* **model.py**: The model is a scaled-up version of our [TinyGPT](file:///home/ubuntu/playground/practice-llm/apps/basics/src/gpt.py#L33) featuring dropout layers, weight tying, and initialization adjustments.
+* **model.py**: The model is a scaled-up version of our [TinyGPT](../../apps/basics/src/gpt.py#L33) featuring dropout layers, weight tying, and initialization adjustments.
 * **train.py**: Training loop utilizing PyTorch data loaders, gradient accumulation, mixed-precision (AMP), and checkpointing.
 
 ---

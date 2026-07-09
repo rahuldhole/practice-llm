@@ -34,7 +34,7 @@ flowchart TD
 2. **Output Prediction**:
    $$y_t = h_t \mathbf{W}_{hy}^T + b_y$$
 
-*Code reference*: [`RNNCell` in sequence.py](file:///home/ubuntu/playground/practice-llm/apps/basics/src/sequence.py#L7-L22)
+*Code reference*: [`RNNCell` in sequence.py](../src/sequence.py#L7-L22)
 
 ---
 
@@ -54,7 +54,7 @@ Outputs:     y_1         y_2         y_3
 
 By unrolling, we see that the network behaves like an extremely deep feed-forward network where weight parameters ($\mathbf{W}_{xh}, \mathbf{W}_{hh}, \mathbf{W}_{hy}$) are shared across all steps.
 
-*Code reference*: [Embedding and unrolled loop in RNNLanguageModel](file:///home/ubuntu/playground/practice-llm/apps/basics/src/sequence.py#L24-L58)
+*Code reference*: [Embedding and unrolled loop in RNNLanguageModel](../src/sequence.py#L24-L58)
 
 ---
 

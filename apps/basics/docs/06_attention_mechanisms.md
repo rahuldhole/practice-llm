@@ -47,7 +47,7 @@ To enforce this, we set the affinities of future tokens to $-\infty$ before calc
 We implement this using a lower-triangular matrix:
 $$\mathbf{M} = \begin{bmatrix} 0 & -\infty & -\infty \\ 0 & 0 & -\infty \\ 0 & 0 & 0 \end{bmatrix}$$
 
-*Code reference*: [`CausalSelfAttentionHead` in attention.py](file:///home/ubuntu/playground/practice-llm/apps/basics/src/attention.py#L5-L42)
+*Code reference*: [`CausalSelfAttentionHead` in attention.py](../src/attention.py#L5-L42)
 
 ---
 
@@ -64,9 +64,9 @@ Input (B, T, n_embd)
   └── Head N ──> (B, T, head_size) ──┘
 ```
 
-*Code reference*: [`MultiHeadAttention` in attention.py](file:///home/ubuntu/playground/practice-llm/apps/basics/src/attention.py#L44-L71)
+*Code reference*: [`MultiHeadAttention` in attention.py](../src/attention.py#L44-L71)
 
 ---
 
 ## 💡 Practical Challenge
-Open [attention.py](file:///home/ubuntu/playground/practice-llm/apps/basics/src/attention.py). Run the demo and check the printed attention weight matrix. Observe how the upper triangle values are zero. Try changing the input sequence and check how the weights update based on queries and keys.
+Open [attention.py](../src/attention.py). Run the demo and check the printed attention weight matrix. Observe how the upper triangle values are zero. Try changing the input sequence and check how the weights update based on queries and keys.

@@ -32,7 +32,7 @@ $$C_{ij} = A_{ij} + B_{ij}$$
 [1  2]  +  [5  6]  =  [1+5  2+6]  =  [6   8]
 [3  4]     [7  8]     [3+7  4+8]     [10 12]
 ```
-*Code reference*: [`__add__` and `__sub__` in matrix.py](file:///home/ubuntu/playground/practice-llm/apps/basics/src/matrix.py#L38-L58)
+*Code reference*: [`__add__` and `__sub__` in matrix.py](../src/matrix.py#L38-L58)
 
 ### B. Matrix Multiplication (Matmul)
 Matrix multiplication represents the mapping of inputs through a neural network layer.
@@ -44,7 +44,7 @@ Matrix multiplication represents the mapping of inputs through a neural network 
 Row 1 of A: [1, 2]   Col 1 of B: [5, 7]^T
 C_11 = 1*5 + 2*7 = 5 + 14 = 19
 ```
-*Code reference*: [`matmul` in matrix.py](file:///home/ubuntu/playground/practice-llm/apps/basics/src/matrix.py#L60-L75)
+*Code reference*: [`matmul` in matrix.py](../src/matrix.py#L60-L75)
 
 ### C. Matrix Transpose
 Transposing a matrix flips it over its main diagonal, swapping its row and column indices. The transpose of an $m \times n$ matrix is an $n \times m$ matrix.
@@ -55,7 +55,7 @@ $$A^T_{ji} = A_{ij}$$
 [4  5  6]       [2  5]
                 [3  6]
 ```
-*Code reference*: [`transpose` in matrix.py](file:///home/ubuntu/playground/practice-llm/apps/basics/src/matrix.py#L77-L83)
+*Code reference*: [`transpose` in matrix.py](../src/matrix.py#L77-L83)
 
 ---
 
@@ -69,9 +69,9 @@ Deep learning architectures use statistical properties of matrices to stabilize 
 * **Variance ($\sigma^2$)**: Measures how far the numbers are spread out from their average.
   $$\sigma^2 = \frac{1}{N} \sum_{i=1}^{N} (x_i - \mu)^2$$
 
-*Code reference*: [`mean` and `var` in matrix.py](file:///home/ubuntu/playground/practice-llm/apps/basics/src/matrix.py#L88-L135)
+*Code reference*: [`mean` and `var` in matrix.py](../src/matrix.py#L88-L135)
 
 ---
 
 ## 💡 Practical Challenge
-Open [matrix.py](file:///home/ubuntu/playground/practice-llm/apps/basics/src/matrix.py). Read the methods and run the demo script. Try to clear the implementation of the `matmul` method and rewrite it yourself. Run `task test` to check if your manual implementation is correct!
+Open [matrix.py](../src/matrix.py). Read the methods and run the demo script. Try to clear the implementation of the `matmul` method and rewrite it yourself. Run `task test` to check if your manual implementation is correct!

@@ -8,7 +8,7 @@ This guide connects our educational modules to the optimizations used in a produ
 
 ## 1. model.py in nanoGPT
 
-Our [TinyGPT](file:///home/ubuntu/playground/practice-llm/apps/basics/src/gpt.py#L40) matches the architecture of nanoGPT. However, nanoGPT implements several key optimizations:
+Our [TinyGPT](../src/gpt.py#L40) matches the architecture of nanoGPT. However, nanoGPT implements several key optimizations:
 
 ### A. Vectorized Attention (QKV Packing)
 In our educational code, we created individual heads in a list and ran loops. In `nanoGPT`, all queries, keys, and values are computed in a single large matrix multiplication for speed:

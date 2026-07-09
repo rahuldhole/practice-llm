@@ -40,7 +40,7 @@ LayerNorm normalizes the features of each token independently:
 $$\text{LN}(x) = \gamma \cdot \frac{x - \mu}{\sqrt{\sigma^2 + \epsilon}} + \beta$$
 where $\mu$ is the mean of the token's features, and $\sigma^2$ is its variance. This stabilizes the scale of activations across deep layers.
 
-*Code reference*: [`Block` in gpt.py](file:///home/ubuntu/playground/practice-llm/apps/basics/src/gpt.py#L20-L38)
+*Code reference*: [`Block` in gpt.py](../src/gpt.py#L20-L38)
 
 ---
 
@@ -51,7 +51,7 @@ $$\text{FFN}(x) = \text{Activation}(x \mathbf{W}_1 + b_1) \mathbf{W}_2 + b_2$$
 
 The FFN typically projects the embedding dimension to $4 \times$ its size before projecting it back. This expansion acts as a database/storage space where the model encodes factual knowledge.
 
-*Code reference*: [`FeedForward` in gpt.py](file:///home/ubuntu/playground/practice-llm/apps/basics/src/gpt.py#L7-L18)
+*Code reference*: [`FeedForward` in gpt.py](../src/gpt.py#L7-L18)
 
 ---
 
@@ -63,7 +63,7 @@ Putting it all together, our `TinyGPT` decoder model:
 3. Normalizes outputs using a final `LayerNorm`.
 4. Projects representations to vocabulary logits to predict the next token.
 
-*Code reference*: [`TinyGPT` in gpt.py](file:///home/ubuntu/playground/practice-llm/apps/basics/src/gpt.py#L40-L100)
+*Code reference*: [`TinyGPT` in gpt.py](../src/gpt.py#L40-L100)
 
 ---
 

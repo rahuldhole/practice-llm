@@ -23,7 +23,7 @@ Token IDs: [0, 1, 2]
   - Sentences generate very long lists of IDs, which makes it computationally expensive for model context windows.
   - The model has to learn how to spell words from scratch.
 
-*Code reference*: [`CharTokenizer` in tokenizer.py](file:///home/ubuntu/playground/practice-llm/apps/basics/src/tokenizer.py#L1-L20)
+*Code reference*: [`CharTokenizer` in tokenizer.py](../src/tokenizer.py#L1-L20)
 
 ---
 
@@ -55,7 +55,7 @@ Imagine we have the text `"banana bandanna"`.
 * **Encoding**: Given a new string, we first break it down into character tokens. We then scan the sequence and apply our learned merges in the exact order they were trained (priority order).
 * **Decoding**: To translate tokens back to text, we lookup each token ID in the vocabulary dictionary and concatenate the corresponding bytes or characters.
 
-*Code reference*: [`BPETokenizer` in tokenizer.py](file:///home/ubuntu/playground/practice-llm/apps/basics/src/tokenizer.py#L23-L113)
+*Code reference*: [`BPETokenizer` in tokenizer.py](../src/tokenizer.py#L23-L113)
 
 ---
 

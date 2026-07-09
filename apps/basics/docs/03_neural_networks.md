@@ -40,7 +40,7 @@ Squashes inputs to a range between $0$ and $1$. Useful for binary classification
 $$f(x) = \sigma(x) = \frac{1}{1 + e^{-x}}$$
 *Derivative*: $f'(x) = \sigma(x)(1 - \sigma(x))$.
 
-*Code reference*: [Activation functions in autograd.py](file:///home/ubuntu/playground/practice-llm/apps/basics/src/autograd.py#L66-L95)
+*Code reference*: [Activation functions in autograd.py](../src/autograd.py#L66-L95)
 
 ---
 
@@ -53,7 +53,7 @@ A **Multi-Layer Perceptron (MLP)** organizes neurons into layers:
 
 In an MLP, every neuron in layer $L$ is connected to every neuron in layer $L-1$ (Fully Connected or Dense).
 
-*Code reference*: [`Neuron`, `Layer`, and `MLP` in nn.py](file:///home/ubuntu/playground/practice-llm/apps/basics/src/nn.py#L16-L65)
+*Code reference*: [`Neuron`, `Layer`, and `MLP` in nn.py](../src/nn.py#L16-L65)
 
 ---
 
@@ -83,7 +83,7 @@ Training a neural network is an iterative process:
        p.data -= learning_rate * p.grad
    ```
 
-*Code reference*: [XOR training loop in nn.py](file:///home/ubuntu/playground/practice-llm/apps/basics/src/nn.py#L68-L101)
+*Code reference*: [XOR training loop in nn.py](../src/nn.py#L68-L101)
 
 ---
 
