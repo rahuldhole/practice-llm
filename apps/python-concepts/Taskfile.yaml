@@ -1,0 +1,28 @@
+version: '3'
+
+tasks:
+  venv:
+    desc: "Create a virtual environment at workspace root"
+    cmds:
+      - python3 -m venv ../../venv
+    status:
+      - test -d ../../venv
+
+  install:
+    desc: "Install dependencies and the project in editable mode"
+    deps: [venv]
+    cmds:
+      - ../../venv/bin/pip install --upgrade pip
+      - ../../venv/bin/pip install -e .
+
+  test:
+    desc: "Run all tests in the project"
+    deps: [install]
+    cmds:
+      - ../../venv/bin/pytest tests/
+
+  run:
+    desc: "Run a specific python script or file. Usage: task run -- src/dunder_methods.py"
+    deps: [install]
+    cmds:
+      - ../../venv/bin/python {{.CLI_ARGS}}
