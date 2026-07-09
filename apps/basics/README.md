@@ -41,4 +41,4 @@ task run -- src/gpt.py
 ```
 
 ## 📖 The Tutorial Roadmap
-For a detailed guide on the 12 phases of learning, read [05-basics-roadmap.md](../../learning/tutorials-llm/05-basics-roadmap.md).
+For a detailed guide on the learning ladder, start with the local [Course Overview](docs/00_overview.md) or read the shared roadmap [05-basics-roadmap.md](../../learning/tutorials-llm/05-basics-roadmap.md).
