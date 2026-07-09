@@ -110,3 +110,15 @@ if __name__ == "__main__":
     # Run pipeline lazily
     for bg in word_bigrams:
         print(f"  Bigram: {bg}")
+
+    # or uncomment the following lines to manually call via next() one by one, note that the function pauses at yield
+    # and resumes from where it left off when next() is called again
+    # print(f"  Bigram: {next(word_bigrams)}")
+    # print(f"  Bigram: {next(word_bigrams)}")
+    # print(f"  Bigram: {next(word_bigrams)}")
+    # print(f"  Bigram: {next(word_bigrams)}")
+    # print(f"  Bigram: {next(word_bigrams)}")
+    # print(f"  Bigram: {next(word_bigrams)}")
+    # print(f"  Bigram: {next(word_bigrams)}")
+    # print(f"  Bigram: {next(word_bigrams)}")
+    # print(f"  Bigram: {next(word_bigrams)}")
