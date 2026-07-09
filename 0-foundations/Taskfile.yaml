@@ -1,0 +1,29 @@
+version: '3'
+
+includes:
+  python:
+    taskfile: ./10-python-concepts
+    dir: ./10-python-concepts
+  basics:
+    taskfile: ./20-basics
+    dir: ./20-basics
+  pytorch:
+    taskfile: ./30-pytorch-patterns
+    dir: ./30-pytorch-patterns
+  transformer:
+    taskfile: ./40-transformer
+    dir: ./40-transformer
+  scratch-min:
+    taskfile: ./50-scratch-llm-minimal
+    dir: ./50-scratch-llm-minimal
+  scratch:
+    taskfile: ./60-scratch-llm
+    dir: ./60-scratch-llm
+
+tasks:
+  test-all:
+    desc: "Run tests for all foundational modules"
+    deps:
+      - python:test
+      - basics:test
+      - pytorch:test

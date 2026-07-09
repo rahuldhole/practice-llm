@@ -5,13 +5,12 @@
 #       task
 #       (or task --list / task -l)
 #
-#   - Run a task from a specific subproject:
-#       task <subproject>:<task_name> [-- <args>]
+#   - Run a task using namespace paths:
+#       task <track>:<subproject>:<task_name> [-- <args>]
 #       Examples:
-#         task basics:test
-#         task python-concepts:run -- src/dunder_methods.py
-#         task scratch-llm:train -- --device cpu
-#         task python-concepts:run -- src/oop_meta.py
+#         task foundations:basics:test
+#         task foundations:python:run -- src/dunder_methods.py
+#         task foundations:scratch:train -- --device cpu
 #
 #   - Run root orchestration tasks:
 #       task test-all
@@ -20,28 +19,22 @@
 version: '3'
 
 includes:
-  basics:
-    taskfile: ./0-foundations/20-basics
-    dir: ./0-foundations/20-basics
-  python-concepts:
-    taskfile: ./0-foundations/10-python-concepts
-    dir: ./0-foundations/10-python-concepts
-  scratch-llm:
-    taskfile: ./0-foundations/60-scratch-llm
-    dir: ./0-foundations/60-scratch-llm
-  scratch-llm-minimal:
-    taskfile: ./0-foundations/50-scratch-llm-minimal
-    dir: ./0-foundations/50-scratch-llm-minimal
-  transformer:
-    taskfile: ./0-foundations/40-transformer
-    dir: ./0-foundations/40-transformer
-  pytorch-patterns:
-    taskfile: ./0-foundations/30-pytorch-patterns
-    dir: ./0-foundations/30-pytorch-patterns
+  foundations:
+    taskfile: ./0-foundations/Taskfile.yaml
+    dir: ./0-foundations
+  practitioner:
+    taskfile: ./1-ai-practitioner/Taskfile.yaml
+    dir: ./1-ai-practitioner
+  systems:
+    taskfile: ./2-dl-systems/Taskfile.yaml
+    dir: ./2-dl-systems
+  research:
+    taskfile: ./3-ai-researcher/Taskfile.yaml
+    dir: ./3-ai-researcher
 
 tasks:
   default:
-    desc: "List all available tasks across projects"
+    desc: "List all available tasks across tracks"
     silent: true
     cmds:
       - task --list
@@ -54,8 +47,6 @@ tasks:
       - test -d venv
 
   test-all:
-    desc: "Run tests for all projects (basics, python-concepts, pytorch-patterns)"
+    desc: "Run tests for all tracked projects"
     deps:
-      - basics:test
-      - python-concepts:test
-      - pytorch-patterns:test
+      - foundations:test-all

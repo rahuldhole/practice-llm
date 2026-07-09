@@ -1,0 +1,8 @@
+version: '3'
+
+tasks:
+  default:
+    desc: "List AI Researcher tasks"
+    silent: true
+    cmds:
+      - task --list
